@@ -5,92 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultoría CPRO | Soluciones Contables</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
-        /* --- ESTILOS GENERALES (Basados en tus imágenes) --- */
-        :root {
-            --primary-color: #1e3a8a; /* Azul oscuro corporativo */
-            --secondary-color: #3b82f6; /* Azul brillante para botones */
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f3f4f6;
-        }
+        /* --- ESTILOS GENERALES (Diseño Varonil y Corporativo) --- */
+        :root { --primary-color: #1e3a8a; --secondary-color: #3b82f6; --text-dark: #1f2937; --bg-light: #f3f4f6; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: var(--text-dark); background-color: #fff; scroll-behavior: smooth; }
-        h1, h2, h3 { font-weight: 700; margin-bottom: 1rem; }
         
-        /* --- MENU DE NAVEGACION --- */
+        /* Header */
         header { background-color: #111827; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .nav-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .logo { font-size: 1.5rem; color: white; font-weight: bold; display: flex; align-items: center; gap: 10px; }
-        .logo i { color: var(--secondary-color); }
-        
         nav ul { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
         nav a { color: #e5e7eb; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
         nav a:hover { color: var(--secondary-color); }
 
-        /* --- SECCIONES COMUNES --- */
+        /* Secciones */
         .section-container { max-width: 1200px; margin: auto; padding: 60px 20px; }
         .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary-color); }
-        .section-title p { color: var(--text-light); font-size: 1.1rem; }
+        .section-title h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; }
 
-        /* --- SERVICIOS (Imagen 2) --- */
+        /* Servicios */
         .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
         .service-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1 1 300px; max-width: 350px; border: 1px solid #e5e7eb; transition: transform 0.3s; }
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 4px solid var(--secondary-color); }
         .icon-circle { width: 60px; height: 60px; background-color: var(--primary-color); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin-bottom: 20px; }
-        .service-card ul { list-style: none; padding: 0; margin-top: 20px; }
-        .service-card ul li { margin-bottom: 10px; color: var(--text-light); font-size: 0.9rem; position: relative; padding-left: 25px; }
-        .service-card ul li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #10b981; position: absolute; left: 0; }
 
-        /* --- ANALISIS DE DOCUMENTOS (Imagen 5) --- */
+        /* Análisis (Upload) */
         #analisis { background-color: #f8fafc; }
         .upload-area { border: 2px dashed #3b82f6; background-color: #eff6ff; padding: 50px; text-align: center; border-radius: 15px; cursor: pointer; transition: background 0.3s; }
         .upload-area:hover { background-color: #dbeafe; }
         .upload-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 15px; }
-        .btn-upload { background-color: var(--secondary-color); color: white; padding: 10px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 15px; }
         
-        /* Simulación de resultado */
-        #resultadoAnalisis { display: none; margin-top: 30px; background: white; padding: 30px; border-radius: 10px; border-left: 5px solid #10b981; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .report-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
-
-        /* --- BENEFICIOS (Imagen 3) --- */
-        #beneficios { background-color: var(--primary-color); color: white; text-align: center; }
+        /* Beneficios */
+        #beneficios { background-color: var(--primary-color); color: white; }
         #beneficios .section-title h2 { color: white; }
-        #beneficios .section-title p { color: #cbd5e1; }
         .benefits-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
-        .benefit-item { flex: 1 1 200px; max-width: 250px; }
+        .benefit-item { flex: 1 1 200px; max-width: 250px; text-align: center; }
         .benefit-icon { width: 70px; height: 70px; background-color: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; }
 
-        /* --- TESTIMONIOS (Imagen 4) --- */
+        /* Testimonios */
         .testimonials-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .testimonio-card { background: white; padding: 30px; border-radius: 10px; flex: 1 1 300px; max-width: 350px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #f3f4f6; }
+        .testimonio-card { background: white; padding: 30px; border-radius: 10px; flex: 1 1 300px; max-width: 350px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .stars { color: #fbbf24; margin: 10px 0; }
         .client-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
         .client-avatar { width: 50px; height: 50px; background-color: #ddd; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; background-size: cover; }
-        
-        /* --- CONTACTO --- */
+
+        /* Formulario */
         .contact-form { max-width: 600px; margin: auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
-        .btn-submit { width: 100%; background-color: var(--primary-color); color: white; padding: 15px; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .btn-submit { width: 100%; background-color: var(--primary-color); color: white; padding: 15px; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; }
         .btn-submit:hover { background-color: #1e40af; }
+        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
 
-        /* --- ASISTENTE VIRTUAL (Chatbot) --- */
-        .chat-btn { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; /* Verde Whatsapp */ color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2000; animation: bounce 2s infinite; }
-        
+        /* Chatbot */
+        .chat-btn { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2000; animation: bounce 2s infinite; }
         .chat-box { display: none; position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px; background: white; box-shadow: 0 5px 25px rgba(0,0,0,0.2); border-radius: 15px; z-index: 2000; flex-direction: column; overflow: hidden; }
         .chat-header { background-color: var(--primary-color); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
         .chat-body { flex: 1; padding: 15px; overflow-y: auto; background-color: #f0f2f5; display: flex; flex-direction: column; gap: 10px; }
         .chat-footer { padding: 10px; border-top: 1px solid #ddd; display: flex; gap: 5px; }
         .chat-footer input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
-        .chat-footer button { background: var(--secondary-color); color: white; border: none; padding: 10px 15px; border-radius: 50%; cursor: pointer; }
-
+        .chat-footer button { border: none; background: var(--secondary-color); color: white; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; }
         .msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 0.9rem; }
-        .msg.bot { background-color: white; align-self: flex-start; border-radius: 15px 15px 15px 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .msg.user { background-color: #dcf8c6; align-self: flex-end; border-radius: 15px 15px 0 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .wa-link { display: inline-block; margin-top: 5px; color: #25D366; font-weight: bold; text-decoration: none; border: 1px solid #25D366; padding: 5px 10px; border-radius: 5px; }
-
+        .msg.bot { background-color: white; align-self: flex-start; border-radius: 15px 15px 15px 0; }
+        .msg.user { background-color: #dcf8c6; align-self: flex-end; border-radius: 15px 15px 0 15px; }
+        
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
         @media (max-width: 768px) { .nav-container { flex-direction: column; } nav ul { flex-wrap: wrap; justify-content: center; margin-top: 15px; } .chat-box { width: 90%; right: 5%; bottom: 90px; } }
     </style>
@@ -106,7 +87,6 @@
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#analisis">Análisis</a></li>
                     <li><a href="#beneficios">Beneficios</a></li>
-                    <li><a href="#testimonios">Testimonios</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
@@ -116,7 +96,7 @@
     <div class="section-container" id="inicio" style="text-align: center; padding: 80px 20px;">
         <h1 style="font-size: 3rem; color: var(--primary-color);">Expertos en Estrategia Contable</h1>
         <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 20px auto;">Impulsa tu negocio con asesoría financiera de alto nivel y cumplimiento tributario garantizado.</p>
-        <a href="#contacto" style="background-color: var(--secondary-color); color: white; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; margin-top: 20px;">Agenda tu Asesoría</a>
+        <a href="#contacto" style="background-color: var(--secondary-color); color: white; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold;">Agenda tu Asesoría</a>
     </div>
 
     <div class="section-container" id="servicios">
@@ -128,35 +108,17 @@
             <div class="service-card">
                 <div class="icon-circle"><i class="fas fa-calculator"></i></div>
                 <h3>Contabilidad General</h3>
-                <p>Gestión completa de libros contables, conciliaciones bancarias y preparación de estados financieros según normativa peruana.</p>
-                <ul>
-                    <li>Libros contables actualizados</li>
-                    <li>Conciliaciones mensuales</li>
-                    <li>Estados financieros</li>
-                    <li>Declaración PDT</li>
-                </ul>
+                <p>Gestión completa de libros contables, conciliaciones bancarias y preparación de estados financieros.</p>
             </div>
             <div class="service-card">
                 <div class="icon-circle"><i class="fas fa-file-invoice-dollar"></i></div>
                 <h3>Impuestos y Declaraciones</h3>
                 <p>Asesoría fiscal especializada y preparación de todas sus declaraciones tributarias ante SUNAT.</p>
-                <ul>
-                    <li>Declaración de renta</li>
-                    <li>IGV e ISC</li>
-                    <li>Retenciones</li>
-                    <li>PDT 621, 633, 617</li>
-                </ul>
             </div>
             <div class="service-card">
                 <div class="icon-circle"><i class="fas fa-chart-pie"></i></div>
                 <h3>Asesoría Financiera</h3>
-                <p>Análisis financiero estratégico y planificación para el crecimiento de su negocio en el mercado peruano.</p>
-                <ul>
-                    <li>Análisis de rentabilidad</li>
-                    <li>Presupuestos</li>
-                    <li>Proyecciones financieras</li>
-                    <li>Evaluación de inversiones</li>
-                </ul>
+                <p>Análisis financiero estratégico y planificación para el crecimiento de su negocio.</p>
             </div>
         </div>
     </div>
@@ -164,106 +126,56 @@
     <div id="analisis">
         <div class="section-container">
             <div class="section-title">
-                <h2><i class="fas fa-file-contract"></i> Análisis de Documentos Inteligente</h2>
-                <p>Suba sus estados financieros y obtenga un diagnóstico preliminar al instante.</p>
+                <h2><i class="fas fa-file-contract"></i> Análisis de Documentos</h2>
+                <p>Suba sus estados financieros. Los almacenaremos de forma segura en Supabase.</p>
             </div>
             
-            <div class="upload-area" id="dropArea" onclick="simularAnalisis()">
+            <div class="upload-area" id="dropArea" onclick="document.getElementById('realFileInput').click()">
                 <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                <h3>Arrastre y suelte sus archivos aquí</h3>
-                <p>o</p>
-                <button class="btn-upload">Seleccionar Archivos</button>
-                <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">Formatos aceptados: PDF, Excel (Máx 10MB)</p>
+                <h3 id="uploadText">Arrastre y suelte sus archivos aquí</h3>
+                <p>Formatos aceptados: PDF, Excel (Máx 10MB)</p>
+                <input type="file" id="realFileInput" style="display:none" onchange="subirArchivoSupabase(this)">
             </div>
 
-            <div id="resultadoAnalisis">
-                <div class="report-header">
-                    <h3 style="color: #10b981; margin:0;"><i class="fas fa-check-circle"></i> Análisis Completado</h3>
-                    <span style="font-size: 0.9rem; color: #666;">ID: REF-2026-001</span>
+            <div id="resultadoAnalisis" style="display: none; margin-top: 30px; background: white; padding: 30px; border-radius: 10px; border-left: 5px solid #10b981; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <h3 style="color: #10b981; margin:0;"><i class="fas fa-check-circle"></i> Archivo Recibido</h3>
+                    <span style="font-size: 0.9rem; color: #666;">Estado: Seguro</span>
                 </div>
-                <p><strong>Archivo analizado:</strong> Estado_Resultados_2025.pdf</p>
-                <div style="background: #f0fdf4; padding: 15px; border-radius: 5px; margin: 15px 0;">
-                    <h4 style="margin-top:0;">Resumen Ejecutivo:</h4>
-                    <p>La empresa muestra una <strong>utilidad neta saludable del 18%</strong>, superior al promedio del sector. Sin embargo, se detectan gastos administrativos que han aumentado un 12% respecto al periodo anterior.</p>
-                    <ul>
-                        <li>Liquidez: Óptima</li>
-                        <li>Endeudamiento: Bajo control</li>
-                        <li>Recomendación: Revisar partidas de gastos fijos.</li>
-                    </ul>
-                </div>
-                <button class="btn-upload" onclick="alert('Descargando PDF...')"><i class="fas fa-download"></i> Descargar Informe Completo</button>
+                <p>Hemos guardado su archivo correctamente en la nube.</p>
             </div>
         </div>
     </div>
 
     <div id="beneficios">
         <div class="section-container">
-            <div class="section-title">
-                <h2>Beneficios de Nuestra Consultoría</h2>
-                <p>Descubra cómo podemos transformar su negocio</p>
-            </div>
+            <div class="section-title"><h2>Beneficios</h2></div>
             <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon"><i class="fas fa-clock"></i></div>
-                    <h3>Ahorro de Tiempo</h3>
-                    <p style="font-size: 0.9rem;">Enfoque en su negocio mientras nosotros manejamos la contabilidad.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Cumplimiento SUNAT</h3>
-                    <p style="font-size: 0.9rem;">Siempre al día con las normativas tributarias peruanas.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Crecimiento</h3>
-                    <p style="font-size: 0.9rem;">Estrategias financieras para impulsar su negocio.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon"><i class="fas fa-users"></i></div>
-                    <h3>Atención Personal</h3>
-                    <p style="font-size: 0.9rem;">Asesoría adaptada a las necesidades específicas.</p>
-                </div>
+                <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-clock"></i></div><h3>Ahorro de Tiempo</h3></div>
+                <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-shield-alt"></i></div><h3>Cumplimiento SUNAT</h3></div>
+                <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-chart-line"></i></div><h3>Crecimiento</h3></div>
+                <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-users"></i></div><h3>Atención Personal</h3></div>
             </div>
         </div>
     </div>
 
     <div class="section-container" id="testimonios">
-        <div class="section-title">
-            <h2>Lo Que Dicen Nuestros Clientes</h2>
-        </div>
+        <div class="section-title"><h2>Clientes Felices</h2></div>
         <div class="testimonials-grid">
             <div class="testimonio-card">
-                <div class="client-info">
-                    <div class="client-avatar" style="background-color:#3b82f6;">CV</div>
-                    <div>
-                        <strong>Carlos Vargas</strong><br>
-                        <small>Gerente, Importadora del Pacífico</small>
-                    </div>
-                </div>
+                <div class="client-info"><div class="client-avatar" style="background-color:#3b82f6;">CV</div><strong>Carlos Vargas</strong></div>
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p style="font-style: italic;">"Excelente servicio profesional. Han optimizado nuestros procesos contables y nos han ayudado a cumplir con todas las obligaciones en Perú."</p>
+                <p>"Han optimizado nuestros procesos contables y cumplimos con todo en Perú."</p>
             </div>
             <div class="testimonio-card">
-                <div class="client-info">
-                    <div class="client-avatar" style="background-color:#ec4899;">LM</div>
-                    <div>
-                        <strong>Luisa Mendoza</strong><br>
-                        <small>Directora, Constructora Andina</small>
-                    </div>
-                </div>
+                <div class="client-info"><div class="client-avatar" style="background-color:#ec4899;">LM</div><strong>Luisa Mendoza</strong></div>
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p style="font-style: italic;">"La asesoría fiscal nos ha ayudado a reducir significativamente nuestra carga tributaria. Su conocimiento es excepcional."</p>
+                <p>"La asesoría fiscal nos ha ayudado a reducir nuestra carga tributaria."</p>
             </div>
              <div class="testimonio-card">
-                <div class="client-info">
-                    <div class="client-avatar" style="background-color:#10b981;">RS</div>
-                    <div>
-                        <strong>Roberto Silva</strong><br>
-                        <small>Fundador, Tech Lima</small>
-                    </div>
-                </div>
+                <div class="client-info"><div class="client-avatar" style="background-color:#10b981;">RS</div><strong>Roberto Silva</strong></div>
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p style="font-style: italic;">"Como startup tecnológica, su apoyo ha sido fundamental. Nos han guiado en cada paso del crecimiento financiero."</p>
+                <p>"Fundamental para el crecimiento de nuestra startup tecnológica."</p>
             </div>
         </div>
     </div>
@@ -271,52 +183,39 @@
     <div class="section-container" id="contacto" style="background-color: #f9fafb;">
         <div class="section-title">
             <h2>Contáctanos</h2>
-            <p>Déjanos tus datos y nos pondremos en contacto contigo.</p>
+            <p>Déjanos tus datos. Se guardarán automáticamente en nuestra base de datos.</p>
         </div>
-        <form class="contact-form" action="mailto:consultcm00@gmail.com" method="post" enctype="text/plain">
+        <form class="contact-form" id="supabaseForm" onsubmit="enviarContacto(event)">
             <div class="form-group">
                 <label>Nombre Completo</label>
-                <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
+                <input type="text" id="nombre" required>
             </div>
             <div class="form-group">
                 <label>Correo Electrónico</label>
-                <input type="email" name="email" placeholder="juan@empresa.com" required>
+                <input type="email" id="email" required>
             </div>
             <div class="form-group">
                 <label>Teléfono</label>
-                <input type="tel" name="telefono" placeholder="+51 999 999 999">
+                <input type="tel" id="telefono">
             </div>
             <div class="form-group">
                 <label>Mensaje</label>
-                <textarea name="mensaje" rows="4" placeholder="Cuéntanos qué necesitas..." required></textarea>
+                <textarea id="mensaje" rows="4" required></textarea>
             </div>
-            <button type="submit" class="btn-submit">ENVIAR MENSAJE</button>
+            <button type="submit" class="btn-submit" id="btnEnviar">ENVIAR MENSAJE</button>
+            <p id="formStatus" style="text-align: center; margin-top: 10px; display: none;"></p>
         </form>
     </div>
 
-    <footer style="background-color: #111827; color: #9ca3af; padding: 40px 20px; text-align: center;">
+    <footer>
         <p>&copy; 2026 Consultoría CPRO. Todos los derechos reservados.</p>
         <p>Lima, Perú | Tel: +51 981 140 470 | Email: consultcm00@gmail.com</p>
     </footer>
 
-    <div class="chat-btn" onclick="toggleChat()">
-        <i class="fas fa-robot"></i>
-    </div>
-
+    <div class="chat-btn" onclick="toggleChat()"><i class="fas fa-robot"></i></div>
     <div class="chat-box" id="chatWindow">
-        <div class="chat-header">
-            <div><i class="fas fa-robot"></i> Asistente CPRO</div>
-            <div onclick="toggleChat()" style="cursor: pointer;"><i class="fas fa-times"></i></div>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="msg bot">
-                ¡Hola! 👋 Soy el asistente virtual de CPRO. ¿En qué puedo ayudarte hoy?<br><br>
-                Puedes preguntarme por:<br>
-                1. Costos de servicios<br>
-                2. Cómo acceder<br>
-                3. Contacto WhatsApp
-            </div>
-        </div>
+        <div class="chat-header"><div>Asistente CPRO</div><div onclick="toggleChat()" style="cursor: pointer;"><i class="fas fa-times"></i></div></div>
+        <div class="chat-body" id="chatBody"><div class="msg bot">¡Hola! Soy el asistente virtual. ¿En qué te ayudo?</div></div>
         <div class="chat-footer">
             <input type="text" id="userInput" placeholder="Escribe aquí..." onkeypress="handleEnter(event)">
             <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
@@ -324,32 +223,90 @@
     </div>
 
     <script>
-        // Función Análisis Simulado
-        function simularAnalisis() {
-            const dropArea = document.getElementById('dropArea');
-            const result = document.getElementById('resultadoAnalisis');
-            
-            // Efecto de carga
-            dropArea.innerHTML = '<div class="upload-icon"><i class="fas fa-spinner fa-spin"></i></div><h3>Analizando Documento...</h3><p>Por favor espere un momento</p>';
-            
-            // Esperar 3 segundos para mostrar resultado
-            setTimeout(() => {
-                dropArea.style.display = 'none';
-                result.style.display = 'block';
-                // Alerta suave
-                alert("¡Análisis completado con éxito!");
-            }, 3000);
+        // ==========================================
+        // 1. CREDENCIALES
+        // ==========================================
+        const SUPABASE_URL = 'https://zmpshzskqrkqjohdqliz.supabase.co'; //
+        const SUPABASE_ANON_KEY = 'https://zmpshzskqrkqjohdqliz.supabase.co'; // <-- ¡PEGA AQUI TU CLAVE COPIADA!
+        
+        // Inicializar cliente
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ------------------------------------------
+        // 2. ENVIAR CONTACTO A TABLA 'contactos'
+        // ------------------------------------------
+        async function enviarContacto(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnEnviar');
+            const status = document.getElementById('formStatus');
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value,
+                mensaje: document.getElementById('mensaje').value
+            };
+
+            const { data, error } = await supabase
+                .from('contactos')
+                .insert([formData]);
+
+            if (error) {
+                console.error('Error:', error);
+                status.style.display = 'block';
+                status.style.color = 'red';
+                status.innerText = "Error: " + error.message;
+                btn.disabled = false;
+                btn.innerText = "ENVIAR MENSAJE";
+            } else {
+                status.style.display = 'block';
+                status.style.color = 'green';
+                status.innerText = "¡Mensaje guardado en base de datos correctamente!";
+                document.getElementById('supabaseForm').reset();
+                btn.innerText = "ENVIADO";
+            }
         }
 
-        // Funciones Chatbot
+        // ------------------------------------------
+        // 3. SUBIR ARCHIVO A STORAGE 'documentos'
+        // ------------------------------------------
+        async function subirArchivoSupabase(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const uploadText = document.getElementById('uploadText');
+            uploadText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subiendo a la nube...';
+
+            // Crear nombre único para el archivo
+            const fileName = `uploads/${Date.now()}_${file.name}`;
+
+            const { data, error } = await supabase
+                .storage
+                .from('documentos')
+                .upload(fileName, file);
+
+            if (error) {
+                console.error('Error subiendo:', error);
+                alert("Error al subir el archivo: " + error.message);
+                uploadText.innerText = "Error. Intente de nuevo.";
+            } else {
+                document.getElementById('dropArea').style.display = 'none';
+                document.getElementById('resultadoAnalisis').style.display = 'block';
+                alert("¡Archivo subido exitosamente a Supabase!");
+            }
+        }
+
+        // ------------------------------------------
+        // 4. CHATBOT SIMPLE
+        // ------------------------------------------
         function toggleChat() {
             const chat = document.getElementById('chatWindow');
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        function handleEnter(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
 
         function sendMessage() {
             const input = document.getElementById('userInput');
@@ -359,30 +316,16 @@
             addMessage(input.value, 'user');
             input.value = '';
 
-            // Lógica simple de respuestas
             setTimeout(() => {
                 let botResponse = "";
-
-                if (text.includes('costo') || text.includes('precio') || text.includes('cuanto')) {
-                    botResponse = "Nuestros planes contables base inician desde S/ 350 mensuales para MYPEs. Para una cotización exacta, necesitamos evaluar el volumen de tus comprobantes.";
-                } 
-                else if (text.includes('acceder') || text.includes('servicio') || text.includes('contratar')) {
-                    botResponse = "Para acceder a nuestros servicios, primero realizamos un diagnóstico gratuito de tu situación fiscal. Puedes subir tus documentos en la sección 'Análisis' o escribirnos al WhatsApp.";
+                if (text.includes('costo') || text.includes('precio')) {
+                    botResponse = "Planes desde S/ 350. Para cotizar exacto, escríbenos al WhatsApp.";
+                } else if (text.includes('numero') || text.includes('whatsapp')) {
+                    botResponse = `WhatsApp Directo: <a href="https://wa.me/51981140470" target="_blank" style="color:#25D366">+51 981 140 470</a>`;
+                } else {
+                    botResponse = "Un asesor humano te responderá mejor por WhatsApp.";
                 }
-                else if (text.includes('numero') || text.includes('whatsapp') || text.includes('fono') || text.includes('contacto')) {
-                    botResponse = `Puedes comunicarte directamente con nuestros asesores aquí:<br>
-                    <a href="https://wa.me/51981140470" target="_blank" class="wa-link"><i class="fab fa-whatsapp"></i> +51 981 140 470</a>`;
-                }
-                else {
-                    botResponse = "Entiendo. Para brindarte una respuesta más detallada, te recomiendo conversar con un especialista humano en nuestro WhatsApp: <br><a href='https://wa.me/51981140470' target='_blank' class='wa-link'>Ir al Chat</a>";
-                }
-
                 addMessage(botResponse, 'bot');
-                
-                // Auto-scroll al fondo
-                const body = document.getElementById('chatBody');
-                body.scrollTop = body.scrollHeight;
-
             }, 1000);
         }
 
