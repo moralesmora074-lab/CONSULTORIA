@@ -3,111 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONSULTORIA | Soluciones Contables Integrales</title>
+    <title>Consultoría CPRO | Soluciones Contables</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Estilos Generales */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; scroll-behavior: smooth; }
-        a { text-decoration: none; }
-        
-        /* Encabezado y Menú */
-        header { background-color: #0f172a; /* Azul oscuro */ color: white; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
-        .header-container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; display: flex; align-items: center; }
-        header h1 i { margin-right: 10px; color: #3b82f6; } /* Icono del logo */
-
-        nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
-        nav ul li { margin-left: 25px; }
-        nav ul li a { color: #e2e8f0; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
-        nav ul li a:hover { color: #3b82f6; }
-
-        /* Contenedor Principal */
-        .container { max-width: 1100px; margin: auto; padding: 60px 20px; }
-
-        /* Sección de Servicios */
-        .services-header { text-align: center; margin-bottom: 50px; }
-        .services-header h2 { font-size: 2.5rem; color: #0f172a; margin-bottom: 15px; }
-        .services-header p { font-size: 1.2rem; color: #64748b; }
-
-        .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .service-card { background: white; flex: 1 1 300px; max-width: 350px; padding: 35px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; border-top: 4px solid transparent; }
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-top-color: #3b82f6; }
-
-        /* Iconos y Contenido de las Tarjetas */
-        .icon-wrapper { width: 70px; height: 70px; background-color: #eff6ff; color: #3b82f6; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; margin-bottom: 25px; }
-        .service-card h3 { color: #0f172a; margin: 0 0 15px 0; font-size: 1.4rem; }
-        .service-card p { color: #64748b; line-height: 1.6; margin-bottom: 25px; font-size: 0.95rem; }
-        
-        /* Listas con Checkmarks */
-        .service-card ul { list-style: none; padding: 0; margin: 0; }
-        .service-card ul li { margin-bottom: 12px; padding-left: 30px; position: relative; color: #475569; font-size: 0.95rem; }
-        .service-card ul li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #10b981; /* Color verde check */ position: absolute; left: 0; top: 3px; }
-
-        /* Pie de página */
-        footer { background-color: #0f172a; color: #94a3b8; text-align: center; padding: 30px 20px; margin-top: auto; }
-        footer p { margin: 5px 0; }
-
-        /* --- Asistente Virtual (Chatbot) --- */
-        .chat-trigger { position: fixed; bottom: 30px; right: 30px; background-color: #3b82f6; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); cursor: pointer; transition: all 0.3s; z-index: 1000; }
-        .chat-trigger:hover { background-color: #2563eb; transform: scale(1.1); }
-
-        .chat-window { display: none; position: fixed; bottom: 100px; right: 30px; width: 320px; background: white; box-shadow: 0 5px 25px rgba(0,0,0,0.2); border-radius: 15px; overflow: hidden; z-index: 1000; animation: slideIn 0.3s ease forwards; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .chat-header { background-color: #3b82f6; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .chat-header h4 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; }
-        .chat-header h4 i { margin-right: 10px; }
-        .close-chat { cursor: pointer; opacity: 0.8; transition: opacity 0.2s; }
-        .close-chat:hover { opacity: 1; }
-
-        .chat-body { padding: 20px; height: 250px; overflow-y: auto; background-color: #f8fafc; }
-        .message { margin-bottom: 15px; display: flex; }
-        .bot-message .content { background-color: #eff6ff; color: #1e293b; padding: 12px 15px; border-radius: 15px 15px 15px 0; max-width: 85%; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        
-        .chat-footer { padding: 15px; border-top: 1px solid #e2e8f0; background-color: white; }
-        .chat-input-group { display: flex; border: 1px solid #cbd5e1; border-radius: 25px; overflow: hidden; }
-        .chat-input-group input { flex-grow: 1; padding: 12px 20px; border: none; outline: none; font-size: 0.9rem; }
-        .chat-input-group button { padding: 10px 20px; background-color: #3b82f6; color: white; border: none; cursor: pointer; transition: background-color 0.2s; }
-        .chat-input-group button:hover { background-color: #2563eb; }
-        .demo-note { font-size: 0.75rem; color: #94a3b8; text-align: center; margin-top: 10px; }
-
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .header-container { flex-direction: column; padding: 15px; }
-            nav ul { margin-top: 15px; flex-wrap: wrap; justify-content: center; }
-            nav ul li { margin: 5px 10px; }
-            .services-header h2 { font-size: 2rem; }
-            .chat-window { width: 90%; right: 5%; bottom: 90px; }
+        /* --- ESTILOS GENERALES (Basados en tus imágenes) --- */
+        :root {
+            --primary-color: #1e3a8a; /* Azul oscuro corporativo */
+            --secondary-color: #3b82f6; /* Azul brillante para botones */
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f3f4f6;
         }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: var(--text-dark); background-color: #fff; scroll-behavior: smooth; }
+        h1, h2, h3 { font-weight: 700; margin-bottom: 1rem; }
+        
+        /* --- MENU DE NAVEGACION --- */
+        header { background-color: #111827; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { font-size: 1.5rem; color: white; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--secondary-color); }
+        
+        nav ul { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
+        nav a { color: #e5e7eb; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        nav a:hover { color: var(--secondary-color); }
+
+        /* --- SECCIONES COMUNES --- */
+        .section-container { max-width: 1200px; margin: auto; padding: 60px 20px; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--primary-color); }
+        .section-title p { color: var(--text-light); font-size: 1.1rem; }
+
+        /* --- SERVICIOS (Imagen 2) --- */
+        .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        .service-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1 1 300px; max-width: 350px; border: 1px solid #e5e7eb; transition: transform 0.3s; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .icon-circle { width: 60px; height: 60px; background-color: var(--primary-color); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .service-card ul { list-style: none; padding: 0; margin-top: 20px; }
+        .service-card ul li { margin-bottom: 10px; color: var(--text-light); font-size: 0.9rem; position: relative; padding-left: 25px; }
+        .service-card ul li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #10b981; position: absolute; left: 0; }
+
+        /* --- ANALISIS DE DOCUMENTOS (Imagen 5) --- */
+        #analisis { background-color: #f8fafc; }
+        .upload-area { border: 2px dashed #3b82f6; background-color: #eff6ff; padding: 50px; text-align: center; border-radius: 15px; cursor: pointer; transition: background 0.3s; }
+        .upload-area:hover { background-color: #dbeafe; }
+        .upload-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 15px; }
+        .btn-upload { background-color: var(--secondary-color); color: white; padding: 10px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+        
+        /* Simulación de resultado */
+        #resultadoAnalisis { display: none; margin-top: 30px; background: white; padding: 30px; border-radius: 10px; border-left: 5px solid #10b981; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .report-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+
+        /* --- BENEFICIOS (Imagen 3) --- */
+        #beneficios { background-color: var(--primary-color); color: white; text-align: center; }
+        #beneficios .section-title h2 { color: white; }
+        #beneficios .section-title p { color: #cbd5e1; }
+        .benefits-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+        .benefit-item { flex: 1 1 200px; max-width: 250px; }
+        .benefit-icon { width: 70px; height: 70px; background-color: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; }
+
+        /* --- TESTIMONIOS (Imagen 4) --- */
+        .testimonials-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        .testimonio-card { background: white; padding: 30px; border-radius: 10px; flex: 1 1 300px; max-width: 350px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #f3f4f6; }
+        .stars { color: #fbbf24; margin: 10px 0; }
+        .client-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .client-avatar { width: 50px; height: 50px; background-color: #ddd; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; background-size: cover; }
+        
+        /* --- CONTACTO --- */
+        .contact-form { max-width: 600px; margin: auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
+        .btn-submit { width: 100%; background-color: var(--primary-color); color: white; padding: 15px; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .btn-submit:hover { background-color: #1e40af; }
+
+        /* --- ASISTENTE VIRTUAL (Chatbot) --- */
+        .chat-btn { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; /* Verde Whatsapp */ color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2000; animation: bounce 2s infinite; }
+        
+        .chat-box { display: none; position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px; background: white; box-shadow: 0 5px 25px rgba(0,0,0,0.2); border-radius: 15px; z-index: 2000; flex-direction: column; overflow: hidden; }
+        .chat-header { background-color: var(--primary-color); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background-color: #f0f2f5; display: flex; flex-direction: column; gap: 10px; }
+        .chat-footer { padding: 10px; border-top: 1px solid #ddd; display: flex; gap: 5px; }
+        .chat-footer input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
+        .chat-footer button { background: var(--secondary-color); color: white; border: none; padding: 10px 15px; border-radius: 50%; cursor: pointer; }
+
+        .msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 0.9rem; }
+        .msg.bot { background-color: white; align-self: flex-start; border-radius: 15px 15px 15px 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .msg.user { background-color: #dcf8c6; align-self: flex-end; border-radius: 15px 15px 0 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .wa-link { display: inline-block; margin-top: 5px; color: #25D366; font-weight: bold; text-decoration: none; border: 1px solid #25D366; padding: 5px 10px; border-radius: 5px; }
+
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        @media (max-width: 768px) { .nav-container { flex-direction: column; } nav ul { flex-wrap: wrap; justify-content: center; margin-top: 15px; } .chat-box { width: 90%; right: 5%; bottom: 90px; } }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-container">
-            <h1><i class="fas fa-briefcase"></i> CONSULTORIA</h1>
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-chart-line"></i> Consultoría CPRO</div>
             <nav>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#">Análisis</a></li>
-                    <li><a href="#">Beneficios</a></li>
-                    <li><a href="#">Testimonios</a></li>
+                    <li><a href="#analisis">Análisis</a></li>
+                    <li><a href="#beneficios">Beneficios</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div class="container" id="servicios">
-        <div class="services-header">
+    <div class="section-container" id="inicio" style="text-align: center; padding: 80px 20px;">
+        <h1 style="font-size: 3rem; color: var(--primary-color);">Expertos en Estrategia Contable</h1>
+        <p style="font-size: 1.2rem; color: #666; max-width: 700px; margin: 20px auto;">Impulsa tu negocio con asesoría financiera de alto nivel y cumplimiento tributario garantizado.</p>
+        <a href="#contacto" style="background-color: var(--secondary-color); color: white; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; margin-top: 20px;">Agenda tu Asesoría</a>
+    </div>
+
+    <div class="section-container" id="servicios">
+        <div class="section-title">
             <h2>Nuestros Servicios</h2>
             <p>Soluciones integrales para todas sus necesidades contables en Perú</p>
         </div>
-        
         <div class="services-grid">
             <div class="service-card">
-                <div class="icon-wrapper"><i class="fas fa-calculator"></i></div>
+                <div class="icon-circle"><i class="fas fa-calculator"></i></div>
                 <h3>Contabilidad General</h3>
                 <p>Gestión completa de libros contables, conciliaciones bancarias y preparación de estados financieros según normativa peruana.</p>
                 <ul>
@@ -118,7 +137,7 @@
                 </ul>
             </div>
             <div class="service-card">
-                <div class="icon-wrapper"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="icon-circle"><i class="fas fa-file-invoice-dollar"></i></div>
                 <h3>Impuestos y Declaraciones</h3>
                 <p>Asesoría fiscal especializada y preparación de todas sus declaraciones tributarias ante SUNAT.</p>
                 <ul>
@@ -129,7 +148,7 @@
                 </ul>
             </div>
             <div class="service-card">
-                <div class="icon-wrapper"><i class="fas fa-chart-pie"></i></div>
+                <div class="icon-circle"><i class="fas fa-chart-pie"></i></div>
                 <h3>Asesoría Financiera</h3>
                 <p>Análisis financiero estratégico y planificación para el crecimiento de su negocio en el mercado peruano.</p>
                 <ul>
@@ -142,47 +161,239 @@
         </div>
     </div>
 
-    <footer id="contacto">
-        <p>&copy; 2026 CONSULTORIA. Todos los derechos reservados.</p>
-        <p>Lima, Perú | Tel: +51 999 000 000 | Email: info@consultoria.pe</p>
-    </footer>
+    <div id="analisis">
+        <div class="section-container">
+            <div class="section-title">
+                <h2><i class="fas fa-file-contract"></i> Análisis de Documentos Inteligente</h2>
+                <p>Suba sus estados financieros y obtenga un diagnóstico preliminar al instante.</p>
+            </div>
+            
+            <div class="upload-area" id="dropArea" onclick="simularAnalisis()">
+                <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <h3>Arrastre y suelte sus archivos aquí</h3>
+                <p>o</p>
+                <button class="btn-upload">Seleccionar Archivos</button>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">Formatos aceptados: PDF, Excel (Máx 10MB)</p>
+            </div>
 
-    <div class="chat-trigger" onclick="toggleChat()">
-        <i class="fas fa-comment-dots"></i>
+            <div id="resultadoAnalisis">
+                <div class="report-header">
+                    <h3 style="color: #10b981; margin:0;"><i class="fas fa-check-circle"></i> Análisis Completado</h3>
+                    <span style="font-size: 0.9rem; color: #666;">ID: REF-2026-001</span>
+                </div>
+                <p><strong>Archivo analizado:</strong> Estado_Resultados_2025.pdf</p>
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                    <h4 style="margin-top:0;">Resumen Ejecutivo:</h4>
+                    <p>La empresa muestra una <strong>utilidad neta saludable del 18%</strong>, superior al promedio del sector. Sin embargo, se detectan gastos administrativos que han aumentado un 12% respecto al periodo anterior.</p>
+                    <ul>
+                        <li>Liquidez: Óptima</li>
+                        <li>Endeudamiento: Bajo control</li>
+                        <li>Recomendación: Revisar partidas de gastos fijos.</li>
+                    </ul>
+                </div>
+                <button class="btn-upload" onclick="alert('Descargando PDF...')"><i class="fas fa-download"></i> Descargar Informe Completo</button>
+            </div>
+        </div>
     </div>
 
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h4><i class="fas fa-robot"></i> Asistente Virtual</h4>
-            <span class="close-chat" onclick="toggleChat()"><i class="fas fa-times"></i></span>
-        </div>
-        <div class="chat-body">
-            <div class="message bot-message">
-                <div class="content">
-                    ¡Hola! Bienvenido a CONSULTORIA. ¿En qué puedo ayudarte hoy?
+    <div id="beneficios">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Beneficios de Nuestra Consultoría</h2>
+                <p>Descubra cómo podemos transformar su negocio</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Ahorro de Tiempo</h3>
+                    <p style="font-size: 0.9rem;">Enfoque en su negocio mientras nosotros manejamos la contabilidad.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Cumplimiento SUNAT</h3>
+                    <p style="font-size: 0.9rem;">Siempre al día con las normativas tributarias peruanas.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Crecimiento</h3>
+                    <p style="font-size: 0.9rem;">Estrategias financieras para impulsar su negocio.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-users"></i></div>
+                    <h3>Atención Personal</h3>
+                    <p style="font-size: 0.9rem;">Asesoría adaptada a las necesidades específicas.</p>
                 </div>
             </div>
         </div>
-        <div class="chat-footer">
-            <div class="chat-input-group">
-                <input type="text" placeholder="Escribe tu consulta aquí..." disabled>
-                <button disabled><i class="fas fa-paper-plane"></i></button>
+    </div>
+
+    <div class="section-container" id="testimonios">
+        <div class="section-title">
+            <h2>Lo Que Dicen Nuestros Clientes</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonio-card">
+                <div class="client-info">
+                    <div class="client-avatar" style="background-color:#3b82f6;">CV</div>
+                    <div>
+                        <strong>Carlos Vargas</strong><br>
+                        <small>Gerente, Importadora del Pacífico</small>
+                    </div>
+                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p style="font-style: italic;">"Excelente servicio profesional. Han optimizado nuestros procesos contables y nos han ayudado a cumplir con todas las obligaciones en Perú."</p>
             </div>
-            <p class="demo-note">(Esta es una demostración visual. El chat no está conectado a un cerebro real todavía).</p>
+            <div class="testimonio-card">
+                <div class="client-info">
+                    <div class="client-avatar" style="background-color:#ec4899;">LM</div>
+                    <div>
+                        <strong>Luisa Mendoza</strong><br>
+                        <small>Directora, Constructora Andina</small>
+                    </div>
+                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p style="font-style: italic;">"La asesoría fiscal nos ha ayudado a reducir significativamente nuestra carga tributaria. Su conocimiento es excepcional."</p>
+            </div>
+             <div class="testimonio-card">
+                <div class="client-info">
+                    <div class="client-avatar" style="background-color:#10b981;">RS</div>
+                    <div>
+                        <strong>Roberto Silva</strong><br>
+                        <small>Fundador, Tech Lima</small>
+                    </div>
+                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p style="font-style: italic;">"Como startup tecnológica, su apoyo ha sido fundamental. Nos han guiado en cada paso del crecimiento financiero."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container" id="contacto" style="background-color: #f9fafb;">
+        <div class="section-title">
+            <h2>Contáctanos</h2>
+            <p>Déjanos tus datos y nos pondremos en contacto contigo.</p>
+        </div>
+        <form class="contact-form" action="mailto:consultcm00@gmail.com" method="post" enctype="text/plain">
+            <div class="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="email" name="email" placeholder="juan@empresa.com" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" name="telefono" placeholder="+51 999 999 999">
+            </div>
+            <div class="form-group">
+                <label>Mensaje</label>
+                <textarea name="mensaje" rows="4" placeholder="Cuéntanos qué necesitas..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">ENVIAR MENSAJE</button>
+        </form>
+    </div>
+
+    <footer style="background-color: #111827; color: #9ca3af; padding: 40px 20px; text-align: center;">
+        <p>&copy; 2026 Consultoría CPRO. Todos los derechos reservados.</p>
+        <p>Lima, Perú | Tel: +51 981 140 470 | Email: consultcm00@gmail.com</p>
+    </footer>
+
+    <div class="chat-btn" onclick="toggleChat()">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <div class="chat-box" id="chatWindow">
+        <div class="chat-header">
+            <div><i class="fas fa-robot"></i> Asistente CPRO</div>
+            <div onclick="toggleChat()" style="cursor: pointer;"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg bot">
+                ¡Hola! 👋 Soy el asistente virtual de CPRO. ¿En qué puedo ayudarte hoy?<br><br>
+                Puedes preguntarme por:<br>
+                1. Costos de servicios<br>
+                2. Cómo acceder<br>
+                3. Contacto WhatsApp
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="userInput" placeholder="Escribe aquí..." onkeypress="handleEnter(event)">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
-        // Función para abrir/cerrar el chat
+        // Función Análisis Simulado
+        function simularAnalisis() {
+            const dropArea = document.getElementById('dropArea');
+            const result = document.getElementById('resultadoAnalisis');
+            
+            // Efecto de carga
+            dropArea.innerHTML = '<div class="upload-icon"><i class="fas fa-spinner fa-spin"></i></div><h3>Analizando Documento...</h3><p>Por favor espere un momento</p>';
+            
+            // Esperar 3 segundos para mostrar resultado
+            setTimeout(() => {
+                dropArea.style.display = 'none';
+                result.style.display = 'block';
+                // Alerta suave
+                alert("¡Análisis completado con éxito!");
+            }, 3000);
+        }
+
+        // Funciones Chatbot
         function toggleChat() {
-            var chatWindow = document.getElementById('chatWindow');
-            if (chatWindow.style.display === 'block') {
-                chatWindow.style.display = 'none';
-            } else {
-                chatWindow.style.display = 'block';
-            }
+            const chat = document.getElementById('chatWindow');
+            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim().toLowerCase();
+            if (text === "") return;
+
+            addMessage(input.value, 'user');
+            input.value = '';
+
+            // Lógica simple de respuestas
+            setTimeout(() => {
+                let botResponse = "";
+
+                if (text.includes('costo') || text.includes('precio') || text.includes('cuanto')) {
+                    botResponse = "Nuestros planes contables base inician desde S/ 350 mensuales para MYPEs. Para una cotización exacta, necesitamos evaluar el volumen de tus comprobantes.";
+                } 
+                else if (text.includes('acceder') || text.includes('servicio') || text.includes('contratar')) {
+                    botResponse = "Para acceder a nuestros servicios, primero realizamos un diagnóstico gratuito de tu situación fiscal. Puedes subir tus documentos en la sección 'Análisis' o escribirnos al WhatsApp.";
+                }
+                else if (text.includes('numero') || text.includes('whatsapp') || text.includes('fono') || text.includes('contacto')) {
+                    botResponse = `Puedes comunicarte directamente con nuestros asesores aquí:<br>
+                    <a href="https://wa.me/51981140470" target="_blank" class="wa-link"><i class="fab fa-whatsapp"></i> +51 981 140 470</a>`;
+                }
+                else {
+                    botResponse = "Entiendo. Para brindarte una respuesta más detallada, te recomiendo conversar con un especialista humano en nuestro WhatsApp: <br><a href='https://wa.me/51981140470' target='_blank' class='wa-link'>Ir al Chat</a>";
+                }
+
+                addMessage(botResponse, 'bot');
+                
+                // Auto-scroll al fondo
+                const body = document.getElementById('chatBody');
+                body.scrollTop = body.scrollHeight;
+
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const body = document.getElementById('chatBody');
+            const div = document.createElement('div');
+            div.className = `msg ${sender}`;
+            div.innerHTML = text;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
         }
     </script>
-
 </body>
 </html>
