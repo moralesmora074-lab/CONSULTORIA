@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultoría CPRO | Soluciones Contables</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        /* ESTILOS (Iguales a los que te gustaron) */
+        /* ESTILOS (Tu diseño corporativo) */
         :root { --primary-color: #1e3a8a; --secondary-color: #3b82f6; --text-dark: #1f2937; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text-dark); background-color: #fff; scroll-behavior: smooth; }
         
@@ -69,24 +70,24 @@
 
     <div class="section-container" id="contacto" style="background-color: #f9fafb;">
         <h2>Contáctanos</h2>
-        <p>Déjanos tus datos y se guardarán en el sistema.</p>
+        <p>Déjanos tus datos y se guardarán automáticamente en nuestra base de datos.</p>
         
         <form class="contact-form" id="supabaseForm" onsubmit="enviarContacto(event)">
             <div class="form-group">
                 <label>Nombre Completo</label>
-                <input type="text" id="nombre" required>
+                <input type="text" id="nombre" required placeholder="Ej. Juan Pérez">
             </div>
             <div class="form-group">
                 <label>Correo Electrónico</label>
-                <input type="email" id="email" required>
+                <input type="email" id="email" required placeholder="juan@gmail.com">
             </div>
             <div class="form-group">
                 <label>Teléfono</label>
-                <input type="tel" id="telefono">
+                <input type="tel" id="telefono" placeholder="999 999 999">
             </div>
             <div class="form-group">
                 <label>Mensaje</label>
-                <textarea id="mensaje" rows="4" required></textarea>
+                <textarea id="mensaje" rows="4" required placeholder="Escribe tu consulta..."></textarea>
             </div>
             <button type="submit" class="btn-submit" id="btnEnviar">ENVIAR MENSAJE</button>
             <p id="formStatus" style="text-align: center; margin-top: 10px; font-weight: bold;"></p>
@@ -98,43 +99,44 @@
     </footer>
 
     <script>
-        // --- AQUÍ ESTABA EL ERROR, YA LO CORREGÍ ---
+        // Configuración de Supabase
         const supabaseUrl = 'https://zmpshzskqrkqjohdqliz.supabase.co';
-        // Esta es la clave correcta que sacamos de tu captura:
-        const supabaseKey = 'sb_publishable_S-o2vtqOhOkKhgH318MaEQ_Ynh9mOdd'; 
+        const supabaseKey = 'sb_publishable_S-o2vtqOhOkKhgH318MaEQ_Ynh9mOdd';
         
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        // Creamos el cliente con un nombre único para evitar errores
+        const clienteCPRO = supabase.createClient(supabaseUrl, supabaseKey);
 
         async function enviarContacto(e) {
             e.preventDefault();
             const btn = document.getElementById('btnEnviar');
             const status = document.getElementById('formStatus');
             
+            // Mostrar que está cargando
             btn.disabled = true;
-            btn.innerText = "Enviando...";
+            btn.innerText = "Enviando datos...";
             status.innerText = "";
 
-            const formData = {
+            const datosFormulario = {
                 nombre: document.getElementById('nombre').value,
                 email: document.getElementById('email').value,
                 telefono: document.getElementById('telefono').value,
                 mensaje: document.getElementById('mensaje').value
             };
 
-            // Enviamos a la tabla 'contactos' (minúscula, tal cual tu foto)
-            const { data, error } = await supabase
+            // Enviamos a la tabla 'contactos'
+            const { data, error } = await clienteCPRO
                 .from('contactos')
-                .insert([formData]);
+                .insert([datosFormulario]);
 
             if (error) {
                 console.error('Error:', error);
                 status.style.color = 'red';
-                status.innerText = "❌ Error: " + error.message;
+                status.innerText = "❌ Ocurrió un error: " + error.message;
                 btn.disabled = false;
-                btn.innerText = "ENVIAR MENSAJE";
+                btn.innerText = "INTENTAR DE NUEVO";
             } else {
                 status.style.color = 'green';
-                status.innerText = "✅ ¡Enviado! Revisa la tabla en Supabase.";
+                status.innerText = "✅ ¡Recibido! Tus datos están seguros en nuestra nube.";
                 document.getElementById('supabaseForm').reset();
                 btn.innerText = "ENVIADO";
                 
