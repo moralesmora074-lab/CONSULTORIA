@@ -224,10 +224,10 @@
 
     <script>
         // ==========================================
-        // 1. CREDENCIALES
+        // 1. CREDENCIALES CONFIGURADAS (CORREGIDO)
         // ==========================================
-        const SUPABASE_URL = 'https://zmpshzskqrkqjohdqliz.supabase.co'; //
-        const SUPABASE_ANON_KEY = 'https://zmpshzskqrkqjohdqliz.supabase.co'; // <-- ¡PEGA AQUI TU CLAVE COPIADA!
+        const SUPABASE_URL = 'https://zmpshzskqrkqjohdqliz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_S-o2vtqOhOkKhgH318MaEQ_Ynh9mOdd';
         
         // Inicializar cliente
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -266,6 +266,9 @@
                 status.innerText = "¡Mensaje guardado en base de datos correctamente!";
                 document.getElementById('supabaseForm').reset();
                 btn.innerText = "ENVIADO";
+                setTimeout(() => { 
+                   btn.disabled = false; btn.innerText = "ENVIAR MENSAJE"; status.style.display = 'none';
+                }, 3000);
             }
         }
 
