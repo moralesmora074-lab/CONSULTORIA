@@ -2,147 +2,80 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultoría CPRO | Soluciones Contables</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Consultoría CPRO</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <style>
-        /* ESTILOS (Tu diseño corporativo) */
-        :root { --primary-color: #1e3a8a; --secondary-color: #3b82f6; --text-dark: #1f2937; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text-dark); background-color: #fff; scroll-behavior: smooth; }
-        
-        header { background-color: #111827; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { font-size: 1.5rem; color: white; font-weight: bold; }
-        nav ul { list-style: none; display: flex; gap: 25px; padding: 0; }
-        nav a { color: #e5e7eb; text-decoration: none; transition: 0.3s; }
-        nav a:hover { color: var(--secondary-color); }
-
-        .section-container { max-width: 1200px; margin: auto; padding: 60px 20px; text-align: center; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary-color); }
-
-        /* Servicios */
-        .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .service-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 300px; }
-        
-        /* Formulario */
-        .contact-form { max-width: 600px; margin: auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: left; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
-        .btn-submit { width: 100%; background-color: var(--primary-color); color: white; padding: 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .btn-submit:hover { background-color: #1e40af; }
-
-        /* Footer */
-        footer { background: #111827; color: white; text-align: center; padding: 20px; margin-top: 50px; }
+        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding-top: 50px; }
+        .card { background: white; padding: 30px; border-radius: 10px; width: 400px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #1e3a8a; color: white; border: none; font-weight: bold; cursor: pointer; }
+        button:hover { background: #172554; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <div class="logo">Consultoría CPRO</div>
-            <nav>
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="section-container" id="inicio">
-        <h1 style="color: var(--primary-color);">Expertos en Estrategia Contable</h1>
-        <p>Impulsa tu negocio con asesoría financiera de alto nivel.</p>
-    </div>
-
-    <div class="section-container" id="servicios">
-        <h2>Nuestros Servicios</h2>
-        <div class="services-grid">
-            <div class="service-card"><h3>Contabilidad</h3><p>Gestión completa de libros.</p></div>
-            <div class="service-card"><h3>Impuestos</h3><p>Declaraciones ante SUNAT.</p></div>
-            <div class="service-card"><h3>Finanzas</h3><p>Análisis estratégico.</p></div>
-        </div>
-    </div>
-
-    <div class="section-container" id="contacto" style="background-color: #f9fafb;">
-        <h2>Contáctanos</h2>
-        <p>Déjanos tus datos y se guardarán automáticamente en nuestra base de datos.</p>
-        
-        <form class="contact-form" id="supabaseForm" onsubmit="enviarContacto(event)">
-            <div class="form-group">
-                <label>Nombre Completo</label>
-                <input type="text" id="nombre" required placeholder="Ej. Juan Pérez">
-            </div>
-            <div class="form-group">
-                <label>Correo Electrónico</label>
-                <input type="email" id="email" required placeholder="juan@gmail.com">
-            </div>
-            <div class="form-group">
-                <label>Teléfono</label>
-                <input type="tel" id="telefono" placeholder="999 999 999">
-            </div>
-            <div class="form-group">
-                <label>Mensaje</label>
-                <textarea id="mensaje" rows="4" required placeholder="Escribe tu consulta..."></textarea>
-            </div>
-            <button type="submit" class="btn-submit" id="btnEnviar">ENVIAR MENSAJE</button>
-            <p id="formStatus" style="text-align: center; margin-top: 10px; font-weight: bold;"></p>
+    <div class="card">
+        <h2 style="text-align:center; color:#1e3a8a;">Contáctanos (V5.0)</h2>
+        <form id="miForm" onsubmit="enviar(event)">
+            <label>Nombre:</label>
+            <input type="text" id="nombre" required>
+            
+            <label>Correo:</label>
+            <input type="email" id="email" required>
+            
+            <label>Teléfono:</label>
+            <input type="tel" id="telefono">
+            
+            <label>Mensaje:</label>
+            <textarea id="mensaje" required></textarea>
+            
+            <button id="btn" type="submit">ENVIAR AHORA</button>
+            <p id="status" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
         </form>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Consultoría CPRO. Todos los derechos reservados.</p>
-    </footer>
-
     <script>
-        // Configuración de Supabase
+        // CONFIGURACIÓN EXACTA
         const supabaseUrl = 'https://zmpshzskqrkqjohdqliz.supabase.co';
         const supabaseKey = 'sb_publishable_S-o2vtqOhOkKhgH318MaEQ_Ynh9mOdd';
-        
-        // Creamos el cliente con un nombre único para evitar errores
-        const clienteCPRO = supabase.createClient(supabaseUrl, supabaseKey);
+        const cliente = supabase.createClient(supabaseUrl, supabaseKey);
 
-        async function enviarContacto(e) {
+        async function enviar(e) {
             e.preventDefault();
-            const btn = document.getElementById('btnEnviar');
-            const status = document.getElementById('formStatus');
+            const btn = document.getElementById('btn');
+            const status = document.getElementById('status');
             
-            // Mostrar que está cargando
             btn.disabled = true;
-            btn.innerText = "Enviando datos...";
-            status.innerText = "";
+            btn.innerText = "Enviando...";
 
-            const datosFormulario = {
+            const datos = {
                 nombre: document.getElementById('nombre').value,
                 email: document.getElementById('email').value,
                 telefono: document.getElementById('telefono').value,
                 mensaje: document.getElementById('mensaje').value
             };
 
-            // Enviamos a la tabla 'contactos'
-            const { data, error } = await clienteCPRO
-                .from('contactos')
-                .insert([datosFormulario]);
+            // INTENTO 1: Enviar a 'contactos' (minúscula)
+            let { error } = await cliente.from('contactos').insert([datos]);
 
             if (error) {
-                console.error('Error:', error);
+                // Si falla, intentamos con mayúscula por si acaso
+                console.log("Reintentando con mayúscula...");
+                const intento2 = await cliente.from('CONTACTOS').insert([datos]);
+                error = intento2.error;
+            }
+
+            if (error) {
                 status.style.color = 'red';
-                status.innerText = "❌ Ocurrió un error: " + error.message;
+                status.innerText = "Error: " + error.message;
                 btn.disabled = false;
-                btn.innerText = "INTENTAR DE NUEVO";
+                btn.innerText = "Reintentar";
             } else {
                 status.style.color = 'green';
-                status.innerText = "✅ ¡Recibido! Tus datos están seguros en nuestra nube.";
-                document.getElementById('supabaseForm').reset();
+                status.innerText = "✅ ¡ENVIADO CON ÉXITO!";
+                document.getElementById('miForm').reset();
                 btn.innerText = "ENVIADO";
-                
-                setTimeout(() => { 
-                   btn.disabled = false; btn.innerText = "ENVIAR MENSAJE"; 
-                }, 3000);
+                setTimeout(() => { btn.disabled = false; btn.innerText = "ENVIAR AHORA"; }, 3000);
             }
         }
     </script>
