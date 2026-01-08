@@ -8,61 +8,118 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        /* --- ESTILOS GENERALES (Diseño Corporativo Completo) --- */
-        :root { --primary-color: #1e3a8a; --secondary-color: #3b82f6; --text-dark: #1f2937; --bg-light: #f3f4f6; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: var(--text-dark); background-color: #fff; scroll-behavior: smooth; }
-        
-        /* HEADER */
-        header { background-color: #111827; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .nav-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { font-size: 1.5rem; color: white; font-weight: bold; display: flex; align-items: center; gap: 10px; }
-        nav ul { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
-        nav a { color: #e5e7eb; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
-        nav a:hover { color: var(--secondary-color); }
+        /* --- ESTILOS GENERALES (Diseño PRO) --- */
+        :root { --primary: #1e3a8a; --secondary: #3b82f6; --dark: #1f2937; --light: #f3f4f6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: var(--dark); background: white; scroll-behavior: smooth; }
 
-        /* HERO SECTION */
-        .hero { text-align: center; padding: 100px 20px; background: linear-gradient(rgba(30, 58, 138, 0.05), rgba(30, 58, 138, 0.1)); }
-        .hero h1 { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
-        .hero p { font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto 40px auto; }
-        .btn-cta { background-color: var(--secondary-color); color: white; padding: 15px 35px; text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s; }
-        .btn-cta:hover { background-color: #1e40af; transform: scale(1.05); }
+        /* HEADER & NAV */
+        header { background: #111827; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .nav-box { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { color: white; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        nav ul { list-style: none; display: flex; gap: 20px; padding: 0; margin: 0; }
+        nav a { color: #e5e7eb; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        nav a:hover { color: var(--secondary); }
 
-        /* SECCIONES COMUNES */
-        .section-container { max-width: 1200px; margin: auto; padding: 80px 20px; }
-        .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; }
+        /* HERO (PORTADA) */
+        .hero { text-align: center; padding: 100px 20px; background: linear-gradient(to bottom, #eff6ff, white); }
+        .hero h1 { font-size: 3rem; color: var(--primary); margin: 0 0 20px 0; }
+        .hero p { font-size: 1.2rem; color: #555; max-width: 700px; margin: 0 auto 40px auto; }
+        .btn-cta { background: var(--secondary); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); transition: 0.3s; }
+        .btn-cta:hover { background: #1e40af; transform: translateY(-3px); }
+
+        /* SECCIONES */
+        .container { max-width: 1200px; margin: auto; padding: 80px 20px; }
+        .title { text-align: center; margin-bottom: 50px; }
+        .title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
 
         /* SERVICIOS */
-        .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .service-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1 1 300px; max-width: 350px; border: 1px solid #e5e7eb; transition: transform 0.3s; text-align: center; }
-        .service-card:hover { transform: translateY(-5px); border-top: 5px solid var(--secondary-color); }
-        .icon-circle { width: 70px; height: 70px; background-color: var(--primary-color); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; margin: 0 auto 20px auto; }
+        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        .card { background: white; padding: 40px; border-radius: 15px; width: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-top: 5px solid var(--secondary); }
+        .icon { width: 70px; height: 70px; background: var(--primary); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; margin: 0 auto 20px auto; }
 
-        /* UPLOAD AREA (Análisis) */
-        #analisis { background-color: #f8fafc; }
-        .upload-area { border: 2px dashed #3b82f6; background-color: #eff6ff; padding: 60px; text-align: center; border-radius: 15px; cursor: pointer; transition: 0.3s; }
-        .upload-area:hover { background-color: #dbeafe; border-color: #1e40af; }
-        .upload-icon { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 15px; }
+        /* FORMULARIO DE CONTACTO (MOTOR V5.0) */
+        #contacto { background: #f9fafb; }
+        .form-box { max-width: 500px; margin: auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-family: inherit; }
+        .btn-send { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .btn-send:hover { background: #1e40af; }
 
-        /* BENEFICIOS */
-        #beneficios { background-color: var(--primary-color); color: white; }
-        #beneficios .section-title h2 { color: white; }
-        .benefits-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; }
-        .benefit-item { flex: 1 1 200px; max-width: 250px; text-align: center; }
-        .benefit-icon { width: 80px; height: 80px; background-color: rgba(255,255,255,0.15); border-radius: 50%; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; font-size: 2rem; }
+        /* CHATBOT */
+        .chat-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25D366; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 999; animation: bounce 2s infinite; }
+        .chat-window { display: none; position: fixed; bottom: 100px; right: 30px; width: 320px; height: 400px; background: white; box-shadow: 0 5px 25px rgba(0,0,0,0.2); border-radius: 15px; flex-direction: column; overflow: hidden; z-index: 999; }
+        .chat-head { background: var(--primary); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
+        .chat-body { flex: 1; padding: 15px; background: #f0f2f5; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .chat-foot { padding: 10px; background: white; display: flex; gap: 5px; }
+        .msg { padding: 8px 12px; border-radius: 10px; font-size: 14px; max-width: 80%; }
+        .bot { background: white; align-self: flex-start; }
+        .user { background: #dcf8c6; align-self: flex-end; }
+        
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        footer { background: #111827; color: #9ca3af; text-align: center; padding: 30px; margin-top: 0; }
+    </style>
+</head>
+<body>
 
-        /* TESTIMONIOS */
-        .testimonials-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .testimonio-card { background: white; padding: 30px; border-radius: 15px; flex: 1 1 300px; max-width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
-        .client-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .client-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; }
-        .stars { color: #fbbf24; margin-bottom: 15px; }
+    <header>
+        <div class="nav-box">
+            <div class="logo"><i class="fas fa-chart-line"></i> &nbsp;CPRO</div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        /* FORMULARIO DE CONTACTO (Estilo V5.0 Integrado) */
-        #contacto { background-color: #f9fafb; }
-        .contact-form { max-width: 600px; margin: auto; background: white; padding: 50px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #374151; }
-        .form-group input, .form-group textarea { width: 100%; padding: 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; background-color: #f9fafb; box-sizing: border-box;}
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--secondary-color); background: white; }
-        .btn-submit { width: 100%; background-color: var(--primary-color); color: white; padding: 16px; border: none; border-radius: 8px; font-size: 1
+    <div class="hero" id="inicio">
+        <h1>Transformamos tu Contabilidad</h1>
+        <p>Expertos en ERP, Finanzas y Cumplimiento Tributario en Perú.</p>
+        <a href="#contacto" class="btn-cta">Consulta Gratis</a>
+    </div>
+
+    <div class="container" id="servicios">
+        <div class="title">
+            <h2>Nuestros Servicios</h2>
+            <p>Todo lo que tu empresa necesita para crecer</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="icon"><i class="fas fa-calculator"></i></div>
+                <h3>Contabilidad</h3>
+                <p>Balances y libros al día bajo normas NIIF.</p>
+            </div>
+            <div class="card">
+                <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                <h3>Impuestos SUNAT</h3>
+                <p>Declaraciones mensuales sin errores ni multas.</p>
+            </div>
+            <div class="card">
+                <div class="icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Sistemas ERP</h3>
+                <p>Implementación y control de gestión en la nube.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contacto">
+        <div class="container">
+            <div class="title">
+                <h2>Contáctanos</h2>
+                <p>Déjanos tus datos, te responderemos hoy mismo.</p>
+            </div>
+            <div class="form-box">
+                <form id="miForm" onsubmit="enviar(event)">
+                    <label>Nombre:</label>
+                    <input type="text" id="nombre" required placeholder="Tu nombre">
+                    
+                    <label>Correo:</label>
+                    <input type="email" id="email" required placeholder="correo@empresa.com">
+                    
+                    <label>Teléfono:</label>
+                    <input type="tel" id="telefono" placeholder="999 000 000">
+                    
+                    <label>Mensaje:</label>
+                    <textarea id="mensaje" rows="4" required placeholder="¿Cómo podemos ayudarte?"></textarea>
