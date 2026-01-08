@@ -382,3 +382,33 @@
     </script>
 </body>
 </html>
+// Función para hablar con n8n
+async function enviarMensajeAn8n(textoUsuario) {
+    
+    // 1. Aquí pegas la URL que copiaste del Webhook de n8n
+    const urlN8n = "PEGA_AQUI_TU_WEBHOOK_URL"; 
+
+    try {
+        // 2. Preparamos el paquete para enviar
+        const respuesta = await fetch(urlN8n, {
+            method: "POST", // Método de envío
+            headers: {
+                "Content-Type": "application/json" // Decimos que enviamos datos JSON
+            },
+            // 3. Empaquetamos el mensaje del usuario
+            body: JSON.stringify({
+                mensaje: textoUsuario 
+            })
+        });
+
+        // 4. Esperamos la respuesta de n8n
+        const datos = await respuesta.json();
+        
+        // 5. Devolvemos lo que n8n nos contestó
+        return datos.respuesta; 
+
+    } catch (error) {
+        console.error("Error conectando con n8n:", error);
+        return "Hubo un error al conectar con el servidor.";
+    }
+}
