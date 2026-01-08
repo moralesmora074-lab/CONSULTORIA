@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultoría CPRO | Soluciones Contables</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        /* --- ESTILOS GENERALES (Diseño PRO) --- */
-        :root { --primary: #1e3a8a; --secondary: #3b82f6; --dark: #1f2937; --light: #f3f4f6; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: var(--dark); background: white; scroll-behavior: smooth; }
+        /* --- ESTILOS GENERALES --- */
+        :root { 
+            --primary: #1e3a8a; 
+            --secondary: #3b82f6; 
+            --dark: #1f2937; 
+            --light: #f3f4f6; 
+        }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            color: var(--dark); 
+            background: white; 
+            scroll-behavior: smooth; 
+        }
 
-        /* HEADER & NAV */
+        /* HEADER */
         header { background: #111827; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .nav-box { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .logo { color: white; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
@@ -20,17 +33,17 @@
         nav a { color: #e5e7eb; text-decoration: none; font-weight: 500; transition: 0.3s; }
         nav a:hover { color: var(--secondary); }
 
-        /* HERO (PORTADA) */
+        /* PORTADA (HERO) */
         .hero { text-align: center; padding: 100px 20px; background: linear-gradient(to bottom, #eff6ff, white); }
         .hero h1 { font-size: 3rem; color: var(--primary); margin: 0 0 20px 0; }
         .hero p { font-size: 1.2rem; color: #555; max-width: 700px; margin: 0 auto 40px auto; }
-        .btn-cta { background: var(--secondary); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); transition: 0.3s; }
+        .btn-cta { background: var(--secondary); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); transition: 0.3s; display: inline-block;}
         .btn-cta:hover { background: #1e40af; transform: translateY(-3px); }
 
         /* SECCIONES */
         .container { max-width: 1200px; margin: auto; padding: 80px 20px; }
         .title { text-align: center; margin-bottom: 50px; }
-        .title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
+        .title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; margin-top: 0; }
 
         /* SERVICIOS */
         .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
@@ -38,88 +51,9 @@
         .card:hover { transform: translateY(-10px); border-top: 5px solid var(--secondary); }
         .icon { width: 70px; height: 70px; background: var(--primary); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; margin: 0 auto 20px auto; }
 
-        /* FORMULARIO DE CONTACTO (MOTOR V5.0) */
+        /* CONTACTO */
         #contacto { background: #f9fafb; }
         .form-box { max-width: 500px; margin: auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-family: inherit; }
-        .btn-send { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; }
-        .btn-send:hover { background: #1e40af; }
-
-        /* CHATBOT */
-        .chat-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25D366; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 999; animation: bounce 2s infinite; }
-        .chat-window { display: none; position: fixed; bottom: 100px; right: 30px; width: 320px; height: 400px; background: white; box-shadow: 0 5px 25px rgba(0,0,0,0.2); border-radius: 15px; flex-direction: column; overflow: hidden; z-index: 999; }
-        .chat-head { background: var(--primary); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
-        .chat-body { flex: 1; padding: 15px; background: #f0f2f5; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .chat-foot { padding: 10px; background: white; display: flex; gap: 5px; }
-        .msg { padding: 8px 12px; border-radius: 10px; font-size: 14px; max-width: 80%; }
-        .bot { background: white; align-self: flex-start; }
-        .user { background: #dcf8c6; align-self: flex-end; }
-        
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
-        footer { background: #111827; color: #9ca3af; text-align: center; padding: 30px; margin-top: 0; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="nav-box">
-            <div class="logo"><i class="fas fa-chart-line"></i> &nbsp;CPRO</div>
-            <nav>
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="hero" id="inicio">
-        <h1>Transformamos tu Contabilidad</h1>
-        <p>Expertos en ERP, Finanzas y Cumplimiento Tributario en Perú.</p>
-        <a href="#contacto" class="btn-cta">Consulta Gratis</a>
-    </div>
-
-    <div class="container" id="servicios">
-        <div class="title">
-            <h2>Nuestros Servicios</h2>
-            <p>Todo lo que tu empresa necesita para crecer</p>
-        </div>
-        <div class="grid">
-            <div class="card">
-                <div class="icon"><i class="fas fa-calculator"></i></div>
-                <h3>Contabilidad</h3>
-                <p>Balances y libros al día bajo normas NIIF.</p>
-            </div>
-            <div class="card">
-                <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                <h3>Impuestos SUNAT</h3>
-                <p>Declaraciones mensuales sin errores ni multas.</p>
-            </div>
-            <div class="card">
-                <div class="icon"><i class="fas fa-laptop-code"></i></div>
-                <h3>Sistemas ERP</h3>
-                <p>Implementación y control de gestión en la nube.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="contacto">
-        <div class="container">
-            <div class="title">
-                <h2>Contáctanos</h2>
-                <p>Déjanos tus datos, te responderemos hoy mismo.</p>
-            </div>
-            <div class="form-box">
-                <form id="miForm" onsubmit="enviar(event)">
-                    <label>Nombre:</label>
-                    <input type="text" id="nombre" required placeholder="Tu nombre">
-                    
-                    <label>Correo:</label>
-                    <input type="email" id="email" required placeholder="correo@empresa.com">
-                    
-                    <label>Teléfono:</label>
-                    <input type="tel" id="telefono" placeholder="999 000 000">
-                    
-                    <label>Mensaje:</label>
-                    <textarea id="mensaje" rows="4" required placeholder="¿Cómo podemos ayudarte?"></textarea>
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd;
