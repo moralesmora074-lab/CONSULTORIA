@@ -33,13 +33,20 @@
         .title { text-align: center; margin-bottom: 50px; }
         .title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; margin-top: 0; }
 
-        /* SERVICIOS */
+        /* SERVICIOS (Actualizado según tu imagen) */
         .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .card { background: white; padding: 40px; border-radius: 15px; width: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eee; transition: 0.3s; }
+        .card { background: white; padding: 40px; border-radius: 15px; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; border: 1px solid #eee; transition: 0.3s; }
         .card:hover { transform: translateY(-10px); border-top: 5px solid var(--secondary); }
-        .icon { width: 70px; height: 70px; background: var(--primary); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; margin: 0 auto 20px auto; }
+        .icon { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .card h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.4rem; }
+        .card p { color: #666; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+        
+        /* Listas dentro de las tarjetas */
+        .service-list { list-style: none; padding: 0; margin: 0; }
+        .service-list li { margin-bottom: 8px; font-size: 0.9rem; color: #444; display: flex; align-items: center; gap: 10px; }
+        .check { color: #10b981; font-weight: bold; } /* Color verde check */
 
-        /* CONTACTO (Estilo PRO) */
+        /* CONTACTO */
         #contacto { background: #f9fafb; }
         .form-box { max-width: 500px; margin: auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 15px; text-align: left; }
@@ -83,31 +90,53 @@
 
     <div class="hero" id="inicio">
         <h1>Transformamos tu Contabilidad</h1>
-        <p>Expertos en ERP, Finanzas y Cumplimiento Tributario en Perú.</p>
+        <p>Soluciones integrales en ERP, Finanzas y Cumplimiento Tributario en Perú.</p>
         <a href="#contacto" class="btn-cta">Consulta Gratis</a>
     </div>
 
     <div class="container" id="servicios">
         <div class="title">
             <h2>Nuestros Servicios</h2>
-            <p>Todo lo que tu empresa necesita para crecer</p>
+            <p>Soluciones integrales para todas sus necesidades contables en Perú</p>
         </div>
         <div class="grid">
+            
             <div class="card">
                 <div class="icon"><i class="fas fa-calculator"></i></div>
-                <h3>Contabilidad</h3>
-                <p>Balances y libros al día bajo normas NIIF.</p>
+                <h3>Contabilidad General</h3>
+                <p>Gestión completa de libros contables, conciliaciones bancarias y preparación de estados financieros según normativa peruana.</p>
+                <ul class="service-list">
+                    <li><i class="fas fa-check check"></i> Libros contables actualizados</li>
+                    <li><i class="fas fa-check check"></i> Conciliaciones mensuales</li>
+                    <li><i class="fas fa-check check"></i> Estados financieros</li>
+                    <li><i class="fas fa-check check"></i> Declaración PDT</li>
+                </ul>
             </div>
+
             <div class="card">
                 <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                <h3>Impuestos SUNAT</h3>
-                <p>Declaraciones mensuales sin errores ni multas.</p>
+                <h3>Impuestos y Declaraciones</h3>
+                <p>Asesoría fiscal especializada y preparación de todas sus declaraciones tributarias ante SUNAT.</p>
+                <ul class="service-list">
+                    <li><i class="fas fa-check check"></i> Declaración de renta</li>
+                    <li><i class="fas fa-check check"></i> IGV e ISC</li>
+                    <li><i class="fas fa-check check"></i> Retenciones</li>
+                    <li><i class="fas fa-check check"></i> PDT 621, 633, 617</li>
+                </ul>
             </div>
+
             <div class="card">
-                <div class="icon"><i class="fas fa-laptop-code"></i></div>
-                <h3>Sistemas ERP</h3>
-                <p>Implementación y control de gestión en la nube.</p>
+                <div class="icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>Asesoría Financiera</h3>
+                <p>Análisis financiero estratégico y planificación para el crecimiento de su negocio en el mercado peruano.</p>
+                <ul class="service-list">
+                    <li><i class="fas fa-check check"></i> Análisis de rentabilidad</li>
+                    <li><i class="fas fa-check check"></i> Presupuestos</li>
+                    <li><i class="fas fa-check check"></i> Proyecciones financieras</li>
+                    <li><i class="fas fa-check check"></i> Evaluación de inversiones</li>
+                </ul>
             </div>
+
         </div>
     </div>
 
@@ -162,12 +191,12 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN EXACTA DE LA V5.0
+        // CONFIGURACIÓN EXACTA (Usando la llave correcta)
         const supabaseUrl = 'https://zmpshzskqrkqjohdqliz.supabase.co';
         const supabaseKey = 'sb_publishable_S-o2vtqOhOkKhgH318MaEQ_Ynh9mOdd';
         const cliente = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // FUNCIÓN DE ENVÍO V5.0 (La que funciona)
+        // FUNCIÓN DE ENVÍO
         async function enviar(e) {
             e.preventDefault();
             const btn = document.getElementById('btn');
@@ -188,7 +217,7 @@
             let { error } = await cliente.from('contactos').insert([datos]);
 
             if (error) {
-                // Si falla, intentamos con mayúscula (ESTA ES LA CLAVE DEL V5.0)
+                // Si falla, intentamos con mayúscula
                 console.log("Reintentando con mayúscula...");
                 const intento2 = await cliente.from('CONTACTOS').insert([datos]);
                 error = intento2.error;
@@ -226,7 +255,7 @@
             setTimeout(() => {
                 let resp = "Para una atención personalizada, escríbenos al WhatsApp +51 981 140 470.";
                 if(txt.includes('precio') || txt.includes('costo')) resp = "Nuestros planes contables inician desde **S/ 350 al mes**.";
-                if(txt.includes('servicio') || txt.includes('hacen')) resp = "Hacemos contabilidad, impuestos, planillas y sistemas ERP.";
+                if(txt.includes('servicio') || txt.includes('hacen')) resp = "Ofrecemos Contabilidad General, Asesoría Tributaria y Financiera.";
                 if(txt.includes('hola')) resp = "¡Hola! ¿En qué te puedo ayudar hoy?";
                 addMsg(resp, 'bot');
             }, 600);
