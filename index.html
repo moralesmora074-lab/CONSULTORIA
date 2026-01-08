@@ -3,104 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultoría CPRO | Expertos Contables</title>
+    <title>CPRO Consultoría | Soluciones Corporativas</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        /* --- ESTILOS GENERALES --- */
+        /* --- ESTILOS CORPORATIVOS / MASCULINOS --- */
         :root { 
-            --primary: #1e3a8a; /* Azul Oscuro */
-            --secondary: #2563eb; /* Azul Brillante */
-            --accent: #f59e0b; /* Naranja/Dorado para detalles */
-            --dark: #111827; 
-            --light: #f3f4f6; 
+            /* Paleta Seria: Navy, Slate, Steel */
+            --primary: #0f172a;    /* Azul Noche Profundo */
+            --secondary: #334155;  /* Gris Pizarra */
+            --accent: #2563eb;     /* Azul Ejecutivo (Botones) */
+            --accent-hover: #1d4ed8;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
         }
-        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; color: var(--dark); background: white; scroll-behavior: smooth; }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; padding: 0; 
+            color: var(--text-main); 
+            background: var(--bg-light); 
+            scroll-behavior: smooth; 
+        }
 
         /* HEADER */
-        header { background: #111827; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .nav-box { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { color: white; font-size: 1.6rem; font-weight: 700; display: flex; align-items: center; gap: 10px; letter-spacing: 1px; }
-        nav ul { list-style: none; display: flex; gap: 25px; padding: 0; margin: 0; }
-        nav a { color: #e5e7eb; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
-        nav a:hover { color: var(--secondary); }
+        header { 
+            background: var(--primary); 
+            padding: 15px 0; 
+            position: sticky; top: 0; z-index: 1000; 
+            border-bottom: 1px solid #1e293b;
+        }
+        .nav-box { 
+            max-width: 1200px; margin: auto; 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 0 20px; 
+        }
+        .logo { 
+            color: white; font-size: 1.5rem; font-weight: 800; 
+            display: flex; align-items: center; gap: 10px; 
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        nav ul { list-style: none; display: flex; gap: 30px; padding: 0; margin: 0; }
+        nav a { 
+            color: #94a3b8; text-decoration: none; font-weight: 500; 
+            transition: 0.3s; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        nav a:hover { color: white; }
 
-        /* PORTADA (HERO) */
-        .hero { text-align: center; padding: 120px 20px; background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%); }
-        .hero h1 { font-size: 3.5rem; color: var(--primary); margin: 0 0 20px 0; line-height: 1.2; }
-        .hero p { font-size: 1.3rem; color: #555; max-width: 750px; margin: 0 auto 40px auto; }
-        .btn-cta { background: var(--secondary); color: white; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4); transition: 0.3s; display: inline-block;}
-        .btn-cta:hover { background: #1e40af; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.5); }
+        /* HERO (PORTADA) */
+        .hero { 
+            text-align: center; padding: 140px 20px; 
+            /* Fondo oscuro con imagen sutil de negocios */
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center;
+            color: white;
+        }
+        .hero h1 { 
+            font-size: 3.5rem; font-weight: 800; margin: 0 0 20px 0; 
+            line-height: 1.1; letter-spacing: -1px;
+        }
+        .hero p { 
+            font-size: 1.2rem; color: #cbd5e1; max-width: 700px; 
+            margin: 0 auto 40px auto; font-weight: 300;
+        }
+        .btn-cta { 
+            background: var(--accent); color: white; padding: 16px 40px; 
+            border-radius: 4px; /* Bordes más cuadrados */
+            text-decoration: none; font-weight: 600; font-size: 1rem; 
+            transition: 0.3s; display: inline-block; border: 1px solid var(--accent);
+        }
+        .btn-cta:hover { 
+            background: transparent; border-color: white; color: white;
+        }
 
         /* ESTADÍSTICAS */
-        .stats-bar { background: var(--primary); padding: 50px 0; color: white; text-align: center; }
-        .stats-grid { max-width: 1200px; margin: auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
-        .stat-item h3 { font-size: 2.5rem; margin: 0; color: var(--accent); }
-        .stat-item p { margin: 5px 0 0; font-size: 1rem; opacity: 0.9; }
+        .stats-bar { 
+            background: white; padding: 40px 0; 
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid { 
+            max-width: 1200px; margin: auto; display: flex; 
+            justify-content: space-around; flex-wrap: wrap; gap: 20px; 
+        }
+        .stat-item h3 { 
+            font-size: 2.2rem; margin: 0; color: var(--primary); font-weight: 800; 
+        }
+        .stat-item p { 
+            margin: 5px 0 0; font-size: 0.9rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;
+        }
 
         /* SECCIONES COMUNES */
         .container { max-width: 1200px; margin: auto; padding: 100px 20px; }
-        .title { text-align: center; margin-bottom: 60px; }
-        .title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; margin-top: 0; position: relative; display: inline-block; }
-        .title h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--secondary); margin: 10px auto 0; border-radius: 2px; }
-        .title p { color: #666; font-size: 1.1rem; }
+        .title { text-align: center; margin-bottom: 70px; }
+        .title h2 { 
+            font-size: 2.2rem; color: var(--primary); margin-bottom: 15px; margin-top: 0; 
+            font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px;
+        }
+        .title p { color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: auto; }
+        .title-line { width: 50px; height: 4px; background: var(--accent); margin: 20px auto 0; }
 
         /* SERVICIOS */
-        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .card { background: white; padding: 40px; border-radius: 20px; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; border: 1px solid #f0f0f0; transition: 0.3s; position: relative; overflow: hidden; }
-        .card:hover { transform: translateY(-10px); border-color: var(--secondary); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--secondary); transform: scaleX(0); transition: 0.3s; transform-origin: left; }
-        .card:hover::before { transform: scaleX(1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         
-        .icon { width: 70px; height: 70px; background: #eff6ff; color: var(--secondary); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; margin-bottom: 25px; }
-        .card h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.5rem; font-weight: 600; }
-        .card p { color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; }
+        .card { 
+            background: white; padding: 40px; border-radius: 6px; 
+            border: 1px solid var(--border); transition: 0.3s; 
+            position: relative; overflow: hidden;
+        }
+        .card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--primary); 
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1); 
+        }
+        
+        .icon { 
+            width: 60px; height: 60px; background: var(--primary); color: white; 
+            border-radius: 4px; display: flex; justify-content: center; align-items: center; 
+            font-size: 1.5rem; margin-bottom: 25px; 
+        }
+        .card h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.3rem; font-weight: 700; }
+        .card p { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; }
         
         .service-list { list-style: none; padding: 0; margin: 0 0 25px 0; }
-        .service-list li { margin-bottom: 10px; font-size: 0.9rem; color: #444; display: flex; align-items: center; gap: 10px; }
-        .check { color: #10b981; font-weight: bold; background: #d1fae5; padding: 3px; border-radius: 50%; font-size: 0.7rem; }
+        .service-list li { margin-bottom: 12px; font-size: 0.9rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .check { color: var(--accent); font-size: 0.8rem; }
         
-        .card-btn { color: var(--secondary); text-decoration: none; font-weight: bold; font-size: 0.95rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
-        .card-btn:hover { gap: 10px; color: var(--primary); }
+        .card-btn { 
+            color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.9rem; 
+            display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; 
+            letter-spacing: 0.5px; border-bottom: 2px solid transparent; transition: 0.3s;
+        }
+        .card-btn:hover { border-bottom-color: var(--accent); }
 
         /* TESTIMONIOS */
-        #testimonios { background-color: #f9fafb; }
-        .testimonial-card { background: white; padding: 30px; border-radius: 15px; width: 300px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-left: 5px solid var(--accent); }
-        .stars { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; }
-        .quote { font-style: italic; color: #555; margin-bottom: 20px; line-height: 1.6; font-size: 0.95rem; }
+        #testimonios { background-color: var(--primary); color: white; }
+        #testimonios .title h2 { color: white; }
+        #testimonios .title p { color: #94a3b8; }
+        
+        .testimonial-card { 
+            background: #1e293b; /* Fondo oscuro para tarjetas */
+            padding: 35px; border-radius: 6px; 
+            border: 1px solid #334155; 
+        }
+        .stars { color: #f59e0b; margin-bottom: 15px; font-size: 0.9rem; }
+        .quote { font-style: italic; color: #cbd5e1; margin-bottom: 25px; line-height: 1.6; font-size: 1rem; }
         .client-profile { display: flex; align-items: center; gap: 15px; }
-        .client-img { width: 50px; height: 50px; border-radius: 50%; background: #ddd; object-fit: cover; }
-        .client-info h4 { margin: 0; font-size: 1rem; color: var(--primary); }
-        .client-info span { font-size: 0.85rem; color: #888; }
+        .client-img { width: 50px; height: 50px; border-radius: 4px; background: #334155; object-fit: cover; }
+        .client-info h4 { margin: 0; font-size: 1rem; color: white; font-weight: 600; }
+        .client-info span { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; }
 
         /* CONTACTO */
-        .form-box { max-width: 600px; margin: auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; font-size: 0.95rem; }
-        input, textarea { width: 100%; padding: 15px; border: 1px solid #e5e7eb; border-radius: 10px; box-sizing: border-box; font-family: inherit; background: #f9fafb; transition: 0.3s; }
-        input:focus, textarea:focus { border-color: var(--secondary); background: white; outline: none; }
-        .btn-send { width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-send:hover { background: #1e40af; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3); }
+        .form-box { 
+            max-width: 700px; margin: auto; background: white; 
+            padding: 50px; border-radius: 6px; 
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); 
+        }
+        .form-group { margin-bottom: 25px; text-align: left; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        input, textarea { 
+            width: 100%; padding: 15px; border: 1px solid var(--border); 
+            border-radius: 4px; box-sizing: border-box; font-family: inherit; 
+            background: #f8fafc; transition: 0.3s; color: var(--primary);
+        }
+        input:focus, textarea:focus { border-color: var(--accent); background: white; outline: none; }
+        
+        .btn-send { 
+            width: 100%; padding: 18px; background: var(--primary); color: white; 
+            border: none; border-radius: 4px; font-size: 1rem; font-weight: 700; 
+            cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-send:hover { background: var(--accent); }
 
         /* FOOTER */
-        footer { background: #111827; color: #9ca3af; text-align: center; padding: 50px 20px; border-top: 1px solid #1f2937; }
+        footer { 
+            background: var(--primary); color: #64748b; text-align: center; 
+            padding: 60px 20px; border-top: 1px solid #1e293b; font-size: 0.9rem;
+        }
+        footer p { margin: 5px 0; }
         
         /* CHATBOT */
-        .chat-btn { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: #25D366; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; cursor: pointer; box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4); z-index: 999; transition: 0.3s; }
-        .chat-btn:hover { transform: scale(1.1); }
-        .chat-window { display: none; position: fixed; bottom: 110px; right: 30px; width: 340px; height: 450px; background: white; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border-radius: 20px; flex-direction: column; overflow: hidden; z-index: 999; animation: slideUp 0.3s ease; }
-        .chat-head { background: var(--primary); color: white; padding: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-        .chat-body { flex: 1; padding: 20px; background: #f0f2f5; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .chat-foot { padding: 15px; background: white; display: flex; gap: 10px; border-top: 1px solid #eee; }
-        .chat-foot input { flex: 1; padding: 10px 15px; border: 1px solid #ddd; border-radius: 30px; outline: none; background: #f9fafb; }
-        .chat-foot button { border: none; background: var(--secondary); color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .chat-btn { 
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
+            background: var(--accent); color: white; border-radius: 4px; /* Cuadrado con bordes suaves */
+            display: flex; justify-content: center; align-items: center; font-size: 28px; 
+            cursor: pointer; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4); z-index: 999; transition: 0.3s; 
+        }
+        .chat-btn:hover { background: var(--primary); }
         
-        .msg { padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; max-width: 85%; line-height: 1.4; }
-        .bot { background: white; align-self: flex-start; border-bottom-left-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .user { background: var(--secondary); color: white; align-self: flex-end; border-bottom-right-radius: 2px; box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3); }
+        .chat-window { 
+            display: none; position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px; 
+            background: white; box-shadow: 0 20px 50px rgba(0,0,0,0.2); border-radius: 8px; 
+            flex-direction: column; overflow: hidden; z-index: 999; border: 1px solid var(--border); 
+            animation: slideUp 0.3s ease;
+        }
+        .chat-head { 
+            background: var(--primary); color: white; padding: 20px; font-weight: 700; 
+            display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155;
+        }
+        .chat-body { flex: 1; padding: 20px; background: #f1f5f9; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .chat-foot { padding: 15px; background: white; display: flex; gap: 10px; border-top: 1px solid var(--border); }
+        .chat-foot input { 
+            flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: 4px; 
+            outline: none; background: white; 
+        }
+        .chat-foot button { 
+            border: none; background: var(--primary); color: white; width: 45px; height: 45px; 
+            border-radius: 4px; cursor: pointer; display: flex; justify-content: center; align-items: center; 
+        }
+        
+        .msg { padding: 12px 16px; border-radius: 6px; font-size: 0.9rem; max-width: 85%; line-height: 1.5; }
+        .bot { background: white; align-self: flex-start; border: 1px solid var(--border); color: var(--text-main); }
+        .user { background: var(--primary); color: white; align-self: flex-end; }
         
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -117,11 +237,11 @@
 
     <header>
         <div class="nav-box">
-            <div class="logo"><i class="fas fa-chart-line"></i> &nbsp;CPRO</div>
+            <div class="logo"><i class="fas fa-layer-group"></i> &nbsp;CPRO GROUP</div>
             <nav>
                 <ul>
                     <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#servicios">Soluciones</a></li>
                     <li><a href="#testimonios">Clientes</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
@@ -130,77 +250,78 @@
     </header>
 
     <div class="hero" id="inicio">
-        <h1>Tu Socio Estratégico en<br>Finanzas y Contabilidad</h1>
-        <p>Expertos en soluciones integrales: ERP, Auditoría y Cumplimiento Tributario para empresas que buscan crecer en Perú.</p>
+        <h1>ESTRATEGIA FINANCIERA<br>DE ALTO NIVEL</h1>
+        <p>Soluciones integrales en Auditoría, Cumplimiento Tributario y Gestión ERP para empresas líderes.</p>
         
-        <a href="#contacto" class="btn-cta">Solicitar Cotización</a>
+        <a href="#contacto" class="btn-cta">SOLICITAR CONSULTORÍA</a>
     </div>
 
     <div class="stats-bar">
         <div class="stats-grid">
             <div class="stat-item">
                 <h3>+150</h3>
-                <p>Clientes Satisfechos</p>
+                <p>Proyectos Ejecutados</p>
             </div>
             <div class="stat-item">
-                <h3>+10</h3>
-                <p>Años de Experiencia</p>
+                <h3>+12</h3>
+                <p>Años de Trayectoria</p>
             </div>
             <div class="stat-item">
                 <h3>100%</h3>
-                <p>Cumplimiento SUNAT</p>
+                <p>Auditoría Aprobada</p>
             </div>
             <div class="stat-item">
-                <h3>S/ 5M</h3>
-                <p>Ahorro Generado</p>
+                <h3>S/ 5M+</h3>
+                <p>Optimización Fiscal</p>
             </div>
         </div>
     </div>
 
     <div class="container" id="servicios">
         <div class="title">
-            <h2>Nuestros Servicios</h2>
-            <p>Soluciones diseñadas para impulsar la rentabilidad de tu negocio</p>
+            <h2>Nuestras Soluciones</h2>
+            <div class="title-line"></div>
+            <p style="margin-top: 15px;">Infraestructura contable robusta para escalar su negocio</p>
         </div>
         <div class="grid">
             
             <div class="card">
-                <div class="icon"><i class="fas fa-calculator"></i></div>
-                <h3>Contabilidad General</h3>
-                <p>Llevamos tus libros contables al día, garantizando el orden y la transparencia financiera que tu empresa necesita.</p>
+                <div class="icon"><i class="fas fa-briefcase"></i></div>
+                <h3>Contabilidad Corporativa</h3>
+                <p>Gestión contable bajo estándares NIIF, asegurando la integridad de la información financiera para la toma de decisiones.</p>
                 <ul class="service-list">
-                    <li><i class="fas fa-check check"></i> Libros electrónicos (PLE)</li>
-                    <li><i class="fas fa-check check"></i> Estados Financieros NIIF</li>
-                    <li><i class="fas fa-check check"></i> Conciliación Bancaria</li>
-                    <li><i class="fas fa-check check"></i> Emisión de Facturas</li>
+                    <li><i class="fas fa-square-full check"></i> Libros Electrónicos (PLE)</li>
+                    <li><i class="fas fa-square-full check"></i> Reportes Gerenciales</li>
+                    <li><i class="fas fa-square-full check"></i> Conciliación Bancaria</li>
+                    <li><i class="fas fa-square-full check"></i> Auditoría Interna</li>
                 </ul>
-                <a href="#contacto" class="card-btn">Solicitar Cotización <i class="fas fa-arrow-right"></i></a>
+                <a href="#contacto" class="card-btn">Más Información <i class="fas fa-chevron-right"></i></a>
             </div>
 
             <div class="card">
-                <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                <h3>Impuestos y SUNAT</h3>
-                <p>Evita multas y contingencias. Nos encargamos de todas tus declaraciones tributarias mensuales y anuales.</p>
+                <div class="icon"><i class="fas fa-balance-scale"></i></div>
+                <h3>Fiscalidad & SUNAT</h3>
+                <p>Estrategias de cumplimiento tributario para mitigar riesgos y optimizar la carga fiscal de la organización.</p>
                 <ul class="service-list">
-                    <li><i class="fas fa-check check"></i> Declaración PDT 621</li>
-                    <li><i class="fas fa-check check"></i> Declaración de Renta Anual</li>
-                    <li><i class="fas fa-check check"></i> Fraccionamientos y Devoluciones</li>
-                    <li><i class="fas fa-check check"></i> Asesoría Fiscal Preventiva</li>
+                    <li><i class="fas fa-square-full check"></i> Declaración Mensual PDT</li>
+                    <li><i class="fas fa-square-full check"></i> Renta Anual Corporativa</li>
+                    <li><i class="fas fa-square-full check"></i> Devoluciones / Drawback</li>
+                    <li><i class="fas fa-square-full check"></i> Defensa Tributaria</li>
                 </ul>
-                <a href="#contacto" class="card-btn">Solicitar Cotización <i class="fas fa-arrow-right"></i></a>
+                <a href="#contacto" class="card-btn">Más Información <i class="fas fa-chevron-right"></i></a>
             </div>
 
             <div class="card">
-                <div class="icon"><i class="fas fa-chart-line"></i></div>
-                <h3>Asesoría Financiera</h3>
-                <p>Transformamos tus datos en estrategias. Planificación financiera para asegurar el crecimiento sostenible.</p>
+                <div class="icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>Consultoría Financiera</h3>
+                <p>Análisis profundo de KPIs y proyecciones de flujo de caja para asegurar la sostenibilidad y expansión.</p>
                 <ul class="service-list">
-                    <li><i class="fas fa-check check"></i> Flujo de Caja Proyectado</li>
-                    <li><i class="fas fa-check check"></i> Evaluación de Inversiones</li>
-                    <li><i class="fas fa-check check"></i> Control de Costos</li>
-                    <li><i class="fas fa-check check"></i> Implementación de ERP</li>
+                    <li><i class="fas fa-square-full check"></i> Valorización de Empresas</li>
+                    <li><i class="fas fa-square-full check"></i> Estructuración de Deuda</li>
+                    <li><i class="fas fa-square-full check"></i> Control de Costos</li>
+                    <li><i class="fas fa-square-full check"></i> Implementación SAP/ERP</li>
                 </ul>
-                <a href="#contacto" class="card-btn">Solicitar Cotización <i class="fas fa-arrow-right"></i></a>
+                <a href="#contacto" class="card-btn">Más Información <i class="fas fa-chevron-right"></i></a>
             </div>
 
         </div>
@@ -209,43 +330,44 @@
     <div id="testimonios">
         <div class="container">
             <div class="title">
-                <h2>Lo que dicen nuestros clientes</h2>
-                <p>Empresas reales que confían en CPRO</p>
+                <h2>Socios Estratégicos</h2>
+                <div class="title-line" style="background: white;"></div>
+                <p style="margin-top: 15px;">Líderes de industria que confían en CPRO</p>
             </div>
             <div class="grid">
                 
                 <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"Gracias a CPRO logramos recuperar un saldo a favor de SUNAT que dábamos por perdido. Su gestión es impecable y muy rápida."</p>
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"La precisión técnica de CPRO nos permitió recuperar un saldo a favor crítico. Su gestión ante SUNAT es impecable y altamente profesional."</p>
                     <div class="client-profile">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente" class="client-img">
                         <div class="client-info">
-                            <h4>Jorge Mendez</h4>
-                            <span>Gerente General, Importadora JM</span>
+                            <h4>Ing. Jorge Mendez</h4>
+                            <span>CEO, GRUPO JM</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"La implementación del sistema contable fue un éxito. Ahora tengo control total de mis inventarios y facturación desde el celular."</p>
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"Implementaron nuestro sistema contable con cero interrupciones operativas. El control de inventarios y facturación ahora es 100% digital."</p>
                     <div class="client-profile">
                         <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente" class="client-img">
                         <div class="client-info">
-                            <h4>Ana Torres</h4>
-                            <span>Dueña, Boutique Moda</span>
+                            <h4>Lic. Ana Torres</h4>
+                            <span>Directora, MODA CORP</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"Excelente servicio de asesoría. Me ayudaron a constituir mi empresa y elegir el régimen tributario que más me convenía."</p>
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"Un servicio de asesoría jurídica y tributaria de primer nivel. Estructuraron nuestra empresa para el crecimiento internacional."</p>
                     <div class="client-profile">
                         <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Cliente" class="client-img">
                         <div class="client-info">
                             <h4>Roberto Castillo</h4>
-                            <span>Fundador, TechSolutions</span>
+                            <span>Fundador, TECHSOLUTIONS</span>
                         </div>
                     </div>
                 </div>
@@ -257,68 +379,71 @@
     <div id="contacto">
         <div class="container">
             <div class="title">
-                <h2>Contáctanos</h2>
-                <p>Déjanos tus datos y un asesor se comunicará contigo en menos de 24 horas.</p>
+                <h2>Contacto Directo</h2>
+                <div class="title-line"></div>
+                <p style="margin-top: 15px;">Complete el formulario para coordinar una reunión ejecutiva.</p>
             </div>
             <div class="form-box">
                 <form id="miForm" onsubmit="enviar(event)">
                     <div class="form-group">
-                        <label>Nombre Completo:</label>
+                        <label>NOMBRE COMPLETO</label>
                         <input type="text" id="nombre" required placeholder="Ej. Juan Pérez">
                     </div>
                     <div class="form-group">
-                        <label>Correo Electrónico:</label>
-                        <input type="email" id="email" required placeholder="ejemplo@correo.com">
+                        <label>CORREO CORPORATIVO</label>
+                        <input type="email" id="email" required placeholder="nombre@empresa.com">
                     </div>
                     <div class="form-group">
-                        <label>Teléfono / WhatsApp:</label>
-                        <input type="tel" id="telefono" placeholder="999 000 000">
+                        <label>TELÉFONO / CELULAR</label>
+                        <input type="tel" id="telefono" placeholder="+51 999 000 000">
                     </div>
                     <div class="form-group">
-                        <label>¿En qué podemos ayudarte?</label>
-                        <textarea id="mensaje" rows="4" required placeholder="Necesito ayuda con mi declaración mensual..."></textarea>
+                        <label>REQUERIMIENTO</label>
+                        <textarea id="mensaje" rows="4" required placeholder="Describa brevemente su consulta..."></textarea>
                     </div>
-                    <button type="submit" class="btn-send" id="btn">ENVIAR CONSULTA</button>
-                    <p id="status" style="text-align: center; margin-top: 15px; font-weight: bold;"></p>
+                    <button type="submit" class="btn-send" id="btn">ENVIAR SOLICITUD</button>
+                    <p id="status" style="text-align: center; margin-top: 15px; font-weight: 600; font-size: 0.9rem;"></p>
                 </form>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 Consultoría CPRO - Lima, Perú</p>
-        <p style="font-size: 0.9rem; color: #6b7280; margin-top:10px;">Expertos en crecimiento empresarial y tranquilidad fiscal.</p>
+        <p>© 2026 CPRO GROUP - Lima, Perú</p>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-top:10px;">Consultoría Estratégica, Contable y Financiera.</p>
     </footer>
 
-    <div class="chat-btn" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></div>
+    <div class="chat-btn" onclick="toggleChat()"><i class="fas fa-comment-alt"></i></div>
     <div class="chat-window" id="chatWindow">
         <div class="chat-head">
             <span>Soporte CPRO</span>
             <span onclick="toggleChat()" style="cursor:pointer"><i class="fas fa-times"></i></span>
         </div>
         <div class="chat-body" id="chatBody">
-            <div class="msg bot">¡Hola! 👋 Bienvenido a CPRO. Pregúntame sobre precios, servicios, o temas contables como libros obligatorios y multas.</div>
+            <div class="msg bot">Bienvenido a CPRO Group. Soy su asistente virtual. Puede consultarme sobre tarifas, servicios o normativa contable.</div>
         </div>
         <div class="chat-foot">
-            <input type="text" id="userInput" placeholder="Escribe aquí..." onkeypress="handleEnter(event)">
+            <input type="text" id="userInput" placeholder="Escriba su consulta..." onkeypress="handleEnter(event)">
             <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
-        // --- 1. CONFIGURACIÓN SUPABASE ---
+        // --- LA LÓGICA PERMANECE EXACTAMENTE IGUAL ---
+
+        // 1. CONFIGURACIÓN SUPABASE
         const supabaseUrl = 'https://zmpshzskqrkqjohdqliz.supabase.co';
         const supabaseKey = 'sb_publishable_S-o2vtqOhOkKhgH318MaEQ_Ynh9mOdd';
         const cliente = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // --- 2. FUNCIÓN CONTACTO (Formulario) ---
+        // 2. FUNCIÓN CONTACTO
         async function enviar(e) {
             e.preventDefault();
             const btn = document.getElementById('btn');
             const status = document.getElementById('status');
             
             btn.disabled = true;
-            btn.innerText = "Enviando...";
+            btn.innerText = "PROCESANDO...";
             status.innerText = "";
 
             const datos = {
@@ -328,31 +453,29 @@
                 mensaje: document.getElementById('mensaje').value
             };
 
-            // Intento de envío a Supabase
             let { error } = await cliente.from('contactos').insert([datos]);
 
-            // Reintento si falla por mayúsculas/minúsculas en la tabla
             if (error) {
-                console.log("Reintentando con mayúscula...");
+                console.log("Reintentando...");
                 const intento2 = await cliente.from('CONTACTOS').insert([datos]);
                 error = intento2.error;
             }
 
             if (error) {
-                status.style.color = 'red';
-                status.innerText = "Error: " + error.message;
+                status.style.color = '#ef4444'; // Rojo corporativo
+                status.innerText = "Error en el servidor: " + error.message;
                 btn.disabled = false;
-                btn.innerText = "Reintentar";
+                btn.innerText = "REINTENTAR";
             } else {
-                status.style.color = 'green';
-                status.innerText = "✅ ¡ENVIADO CON ÉXITO!";
+                status.style.color = '#10b981'; // Verde éxito
+                status.innerText = "✅ SOLICITUD ENVIADA CORRECTAMENTE";
                 document.getElementById('miForm').reset();
                 btn.innerText = "ENVIADO";
-                setTimeout(() => { btn.disabled = false; btn.innerText = "ENVIAR CONSULTA"; }, 3000);
+                setTimeout(() => { btn.disabled = false; btn.innerText = "ENVIAR SOLICITUD"; }, 3000);
             }
         }
 
-        // --- 3. LÓGICA DEL CHATBOT ---
+        // 3. LÓGICA DEL CHATBOT
         function toggleChat() {
             const chat = document.getElementById('chatWindow');
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
@@ -362,54 +485,36 @@
         
         function sendMessage() {
             const input = document.getElementById('userInput');
-            const txt = input.value.toLowerCase().trim(); // Convertimos a minúsculas
+            const txt = input.value.toLowerCase().trim();
             
             if(!txt) return;
 
-            // 1. Agregamos el mensaje del usuario
             addMsg(input.value, 'user');
             input.value = '';
 
-            // 2. Simulamos "pensando..."
             setTimeout(() => {
-                // Respuesta por defecto
-                let resp = "Para una atención personalizada y detallada, escríbenos al WhatsApp +51 981 140 470.";
+                let resp = "Para una atención personalizada, por favor contacte a nuestra central telefónica o vía WhatsApp +51 981 140 470.";
 
-                // --- PREGUNTAS Y RESPUESTAS CONFIGURADAS ---
-
-                // Saludo básico
                 if(txt.includes('hola') || txt.includes('buenas')) {
-                    resp = "¡Hola! 👋 Soy el asistente virtual de CPRO. ¿En qué puedo orientarte hoy?";
+                    resp = "Saludos. Soy el asistente de CPRO Group. ¿En qué podemos asesorarlo hoy?";
                 }
-                
-                // Precios
                 else if(txt.includes('precio') || txt.includes('costo') || txt.includes('cobran')) {
-                    resp = "Nuestros planes contables inician desde **S/ 350 al mes** para el Régimen MYPE Tributario. ¿Te gustaría una cotización exacta?";
+                    resp = "Nuestros honorarios corporativos inician desde **S/ 350 mensuales** para el Régimen MYPE. Podemos coordinar una reunión para una cotización a medida.";
                 }
-
-                // Servicios
                 else if(txt.includes('servicio') || txt.includes('hacen')) {
-                    resp = "Ofrecemos Contabilidad General, Declaraciones SUNAT mensuales/anuales, Asesoría Laboral y Financiera.";
+                    resp = "Brindamos Contabilidad Corporativa, Cumplimiento Tributario (SUNAT), Auditoría y Consultoría Financiera.";
                 }
-
-                // PREGUNTA: Libros Contables Obligatorios
                 else if(txt.includes('libros') && (txt.includes('obligatorio') || txt.includes('cuales'))) {
-                    resp = "Depende de tu régimen. En el **RER y MYPE** es obligatorio el Registro de Compras y Ventas. En el **Régimen General**, se añaden el Libro Diario y Mayor. ¡Nosotros los gestionamos por ti!";
+                    resp = "Para Régimen General, gestionamos Libro Diario, Mayor, Compras y Ventas. En MYPE/RER nos enfocamos en Compras y Ventas. Todo bajo normativa vigente.";
                 }
-
-                // PREGUNTA: Frecuencia de actualización
                 else if(txt.includes('frecuencia') || txt.includes('cada cuanto') || txt.includes('actualizar') || txt.includes('plazo')) {
-                    resp = "Los Libros Electrónicos (PLE) se deben enviar **mensualmente** según el cronograma de vencimientos de SUNAT (basado en el último dígito de tu RUC).";
+                    resp = "Los Libros Electrónicos (PLE) se presentan mensualmente siguiendo rigurosamente el cronograma de SUNAT.";
                 }
-
-                // PREGUNTA: Consecuencias / Multas
                 else if(txt.includes('pasa si') || txt.includes('no llevo') || txt.includes('multa') || txt.includes('sancion')) {
-                    resp = "⚠️ Riesgo alto: SUNAT puede imponerte **multas (UITs)**, cerrar temporalmente tu negocio y realizar fiscalizaciones profundas. Es mejor prevenir y estar al día.";
+                    resp = "El incumplimiento genera contingencias fiscales severas (multas UIT y cierres). Recomendamos regularizar su situación de inmediato.";
                 }
-
-                // Despedida
                 else if(txt.includes('gracias') || txt.includes('chau')) {
-                    resp = "¡De nada! Estamos aquí para ayudarte a crecer. 🚀";
+                    resp = "A su servicio. CPRO Group le desea un excelente día.";
                 }
 
                 addMsg(resp, 'bot');
@@ -418,9 +523,7 @@
 
         function addMsg(txt, type) {
             const body = document.getElementById('chatBody');
-            // Convertimos **texto** en negrita para el chat
             const formattedTxt = txt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            
             body.innerHTML += `<div class="msg ${type}">${formattedTxt}</div>`;
             body.scrollTop = body.scrollHeight;
         }
