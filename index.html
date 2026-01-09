@@ -429,14 +429,21 @@
     </div>
 
     <script>
-        // --- LA LÓGICA PERMANECE EXACTAMENTE IGUAL ---
+        // ==========================================
+        //  1. CONFIGURACIÓN: TU URL DE N8N (Producción)
+        // ==========================================
+        const N8N_URL = 'https://consultss.app.n8n.cloud/webhook/CHATBOT';
 
-        // 1. CONFIGURACIÓN SUPABASE
+        // ==========================================
+        //  2. CONFIGURACIÓN SUPABASE (SIN CAMBIOS)
+        // ==========================================
         const supabaseUrl = 'https://zmpshzskqrkqjohdqliz.supabase.co';
         const supabaseKey = 'sb_publishable_S-o2vtqOhOkKhgH318MaEQ_Ynh9mOdd';
         const cliente = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // 2. FUNCIÓN CONTACTO
+        // ==========================================
+        //  3. FUNCIÓN CONTACTO (SIN CAMBIOS)
+        // ==========================================
         async function enviar(e) {
             e.preventDefault();
             const btn = document.getElementById('btn');
@@ -462,12 +469,12 @@
             }
 
             if (error) {
-                status.style.color = '#ef4444'; // Rojo corporativo
+                status.style.color = '#ef4444';
                 status.innerText = "Error en el servidor: " + error.message;
                 btn.disabled = false;
                 btn.innerText = "REINTENTAR";
             } else {
-                status.style.color = '#10b981'; // Verde éxito
+                status.style.color = '#10b981';
                 status.innerText = "✅ SOLICITUD ENVIADA CORRECTAMENTE";
                 document.getElementById('miForm').reset();
                 btn.innerText = "ENVIADO";
@@ -475,56 +482,69 @@
             }
         }
 
-        // 3. LÓGICA DEL CHATBOT
+        // ==========================================
+        //  4. LÓGICA DEL CHATBOT (CONECTADO A N8N)
+        // ==========================================
+        
         function toggleChat() {
             const chat = document.getElementById('chatWindow');
-            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+            const isHidden = chat.style.display === 'none' || chat.style.display === '';
+            chat.style.display = isHidden ? 'flex' : 'none';
+            if (isHidden) document.getElementById('userInput').focus();
         }
 
         function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
-        
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const txt = input.value.toLowerCase().trim();
-            
-            if(!txt) return;
 
-            addMsg(input.value, 'user');
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const txt = input.value.trim();
+            const body = document.getElementById('chatBody');
+
+            if (!txt) return;
+
+            // A. Mostrar mensaje del usuario
+            addMsg(txt, 'user');
             input.value = '';
 
-            setTimeout(() => {
-                let resp = "Para una atención personalizada, por favor contacte a nuestra central telefónica o vía WhatsApp +51 981 140 470.";
+            // B. Mostrar "Cargando..."
+            const loadingId = 'loading-' + Date.now();
+            body.innerHTML += `
+                <div id="${loadingId}" class="msg bot" style="color:#94a3b8; font-style:italic;">
+                    <i class="fas fa-circle-notch fa-spin"></i> Consultando...
+                </div>`;
+            body.scrollTop = body.scrollHeight;
 
-                if(txt.includes('hola') || txt.includes('buenas')) {
-                    resp = "Saludos. Soy el asistente de CPRO Group. ¿En qué podemos asesorarlo hoy?";
-                }
-                else if(txt.includes('precio') || txt.includes('costo') || txt.includes('cobran')) {
-                    resp = "Nuestros honorarios corporativos inician desde **S/ 350 mensuales** para el Régimen MYPE. Podemos coordinar una reunión para una cotización a medida.";
-                }
-                else if(txt.includes('servicio') || txt.includes('hacen')) {
-                    resp = "Brindamos Contabilidad Corporativa, Cumplimiento Tributario (SUNAT), Auditoría y Consultoría Financiera.";
-                }
-                else if(txt.includes('libros') && (txt.includes('obligatorio') || txt.includes('cuales'))) {
-                    resp = "Para Régimen General, gestionamos Libro Diario, Mayor, Compras y Ventas. En MYPE/RER nos enfocamos en Compras y Ventas. Todo bajo normativa vigente.";
-                }
-                else if(txt.includes('frecuencia') || txt.includes('cada cuanto') || txt.includes('actualizar') || txt.includes('plazo')) {
-                    resp = "Los Libros Electrónicos (PLE) se presentan mensualmente siguiendo rigurosamente el cronograma de SUNAT.";
-                }
-                else if(txt.includes('pasa si') || txt.includes('no llevo') || txt.includes('multa') || txt.includes('sancion')) {
-                    resp = "El incumplimiento genera contingencias fiscales severas (multas UIT y cierres). Recomendamos regularizar su situación de inmediato.";
-                }
-                else if(txt.includes('gracias') || txt.includes('chau')) {
-                    resp = "A su servicio. CPRO Group le desea un excelente día.";
-                }
+            try {
+                // C. Conectar con n8n
+                const response = await fetch(N8N_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        chatInput: txt,
+                        sessionId: 'usuario-web-' + Date.now() 
+                    })
+                });
 
-                addMsg(resp, 'bot');
-            }, 600);
+                const data = await response.json();
+
+                // D. Mostrar respuesta
+                document.getElementById(loadingId).remove();
+                
+                const botReply = data.output || data.text || JSON.stringify(data);
+                addMsg(botReply, 'bot');
+
+            } catch (error) {
+                console.error("Error n8n:", error);
+                document.getElementById(loadingId).remove();
+                addMsg("⚠️ Error de conexión con el asistente.", 'bot');
+            }
         }
 
         function addMsg(txt, type) {
             const body = document.getElementById('chatBody');
-            const formattedTxt = txt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            body.innerHTML += `<div class="msg ${type}">${formattedTxt}</div>`;
+            let formatted = txt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formatted = formatted.replace(/\n/g, '<br>'); // Saltos de línea
+            body.innerHTML += `<div class="msg ${type}">${formatted}</div>`;
             body.scrollTop = body.scrollHeight;
         }
     </script>
